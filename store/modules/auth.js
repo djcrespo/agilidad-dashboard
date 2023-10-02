@@ -2,8 +2,7 @@ import {
   setToken,
   removeRefreshToken,
   removeToken,
-  decodeToken,
-  getToken
+  decodeToken
 } from '../../utils/cookies'
 
 import { login, getUserInfo } from '../../api'
@@ -25,7 +24,7 @@ export const actions = {
   async login ({ commit }, data) {
     const res = await login(data)
     setToken(res.access)
-    console.log(getToken())
+    // console.log(getToken())
     return res
   },
   // user logout

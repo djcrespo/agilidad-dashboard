@@ -1,8 +1,10 @@
 <template>
   <div id="app">
+    <!--
     <div class="float-button">
       <float-action-button />
     </div>
+    -->
     <nav-bar />
     <b-loading v-model="isLoading" :is-full-page="true" :can-cancel="false" />
     <aside-menu
@@ -59,7 +61,7 @@ export default {
         ]
       } else {
         return [
-          'GENERAL',
+          'General',
           [
             {
               to: '/',
@@ -67,6 +69,25 @@ export default {
               icon: 'home',
               label: 'Inicio'
             },
+            {
+              to: '/projects',
+              state: '1primary',
+              icon: 'folder-search-outline',
+              label: 'Seguimiento'
+            },
+            {
+              to: '/invertory',
+              state: '1primary',
+              icon: 'file-multiple-outline',
+              label: 'Generadoras'
+            },
+            {
+              to: '/invertory',
+              state: '1primary',
+              icon: 'file-cog-outline',
+              label: 'Estimaciones'
+            }
+            /*
             {
               to: '/policies',
               label: 'Pólizas',
@@ -97,8 +118,9 @@ export default {
               state: '1white',
               icon: 'archive'
             }
+            */
           ],
-          'ADMINISTRACIÓN',
+          'Administrativo',
           [
             // {
             //   to: '/roles',
@@ -107,29 +129,28 @@ export default {
             //   icon: 'lock'
             // },
             {
-              to: '/reporting',
-              label: 'Reportes',
+              to: '/projects',
+              label: 'Proyectos',
               state: '1primary',
-              icon: 'file-download-alt'
+              icon: 'office-building-cog-outline'
             },
             {
-              label: 'Mensajería',
-              state: '1success',
-              icon: 'envelopes',
-              menu: [
-                {
-                  to: '/templates',
-                  label: 'Plantillas',
-                  state: '1dark',
-                  icon: 'fast-mail-alt'
-                },
-                {
-                  to: '/messages',
-                  label: 'Envíos',
-                  state: '1dark',
-                  icon: 'envelope-send'
-                }
-              ]
+              to: '/reporting',
+              label: 'Catálogo',
+              state: '1primary',
+              icon: 'format-list-bulleted'
+            },
+            {
+              to: '/reporting',
+              label: 'Residentes',
+              state: '1primary',
+              icon: 'clipboard-account-outline'
+            },
+            {
+              to: '/reporting',
+              label: 'Contratistas',
+              state: '1primary',
+              icon: 'account-hard-hat-outline'
             }
           ]
         ]

@@ -3,7 +3,7 @@ export default {
    ** Headers of the page
    */
   head: {
-    title: 'PARAMQ - admin',
+    title: 'Agilidad - Admin',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -35,7 +35,7 @@ export default {
         rel: 'stylesheet',
         type: 'text/css',
         href:
-          'https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css'
+          'https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.2.96/css/materialdesignicons.css'
       },
       {
         rel: 'stylesheet',
@@ -89,6 +89,7 @@ export default {
     dirs: [
       '~/components',
       '~/components/base',
+      '~/components/projects',
       '~/components/forms',
       '~/components/cards'
     ]
@@ -109,14 +110,14 @@ export default {
       source: 'static/icon.png'
     },
     manifest: {
-      name: 'ParamQ',
+      name: 'Agilidad',
       lang: 'es',
       theme_color: '#ff9503',
       useWebmanifestExtension: false
     }
   },
   env: {
-    baseUrl: process.env.BASE_URL || 'https://paramq-asr.herokuapp.com/api'
+    baseUrl: process.env.BASE_URL || 'http://localhost.com/api/v1'
   },
   server: {
     host: process.env.HOST || 'localhost'

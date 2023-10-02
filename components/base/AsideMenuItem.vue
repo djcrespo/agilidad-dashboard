@@ -16,7 +16,7 @@
           'has-update-mark': item.updateMark
         }"
         custom-size="default"
-        pack="uil"
+        pack="mdi"
       />
       <span v-if="item.label" :class="{ 'menu-item-label': !!item.icon }">{{
         item.label

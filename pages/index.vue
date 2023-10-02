@@ -189,7 +189,7 @@ export default {
   },
   head () {
     return {
-      title: 'Panel de control — ParamQ'
+      title: 'Inicio'
     }
   }
 }

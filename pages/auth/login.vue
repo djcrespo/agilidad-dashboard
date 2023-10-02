@@ -1,7 +1,7 @@
 <template>
   <ValidationObserver v-slot="{ handleSubmit }">
     <section class="hero is-fullheight">
-      <div class="hero-body" >
+      <div class="hero-body">
         <div class="login">
           <div class="card box">
             <div class="has-text-centered">
@@ -12,16 +12,17 @@
                   src="../../assets/logo.png"
                   width="200px"
                   alt="Logo"
-                />
+                >
               </figure>
             </div>
             <form @submit="false">
               <BInputWithValidation
                 v-model="form.username"
-                label="Usuario"
-                placeholder="Usuario"
-                message="Ingresa tu nombre de usuario"
-                name="username"
+                label="Correo electrónico"
+                placeholder="ejemplo@dominio.com"
+                message="Ingresa tu correo electrónico"
+                name="correo electrónico"
+                validation-message="Es necesario ingresar un correo válido"
                 icon="account"
                 rules="required"
                 expanded
@@ -33,15 +34,16 @@
                 label="Contraseña"
                 placeholder="Contraseña"
                 message="Ingresa tu contraseña"
+                validation-message="Es necesario ingresar tu contraseña"
                 expanded
                 type="password"
-                name="password"
+                name="contraseña"
                 icon="lock"
                 rules="required"
                 password-reveal
                 :normal="true"
               />
-              <hr />
+              <hr>
               <b-field>
                 <b-button
                   expanded
@@ -124,7 +126,7 @@ export default {
   },
   head () {
     return {
-      title: 'Login — ParamQ'
+      title: 'Iniciar sesión — Agilidad'
     }
   }
 }

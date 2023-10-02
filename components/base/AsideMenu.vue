@@ -11,15 +11,21 @@
       <span v-if="!isSecondary">
         <template>
           <div class="columns is-mobile">
+            <!--
             <div class="column">
-              <span
-                ><img
-                  style="width: 35px; padding-top: 10px;"
-                  src="@/assets/logo.png"
-                  alt="ParamQ logo"
-              /></span>
+              <span><img
+                style="width: 35px; padding-top: 10px"
+                src="@/assets/logo.png"
+                alt="ParamQ logo"
+              ></span>
             </div>
-            <div v-if="isAsideExpanded || isAsideMobileExpanded" class="column is-9"><span>Panel de control</span></div>
+            -->
+            <div
+              v-if="isAsideExpanded || isAsideMobileExpanded"
+              class="column is-9"
+            >
+              <span>Panel de control</span>
+            </div>
           </div>
         </template>
       </span>

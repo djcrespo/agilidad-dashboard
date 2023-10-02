@@ -4,6 +4,7 @@
       <div class="level-left">
         <div class="level-item">
           <ul>
+            <!--
             <li>
               <img
                 v-if="!isDarkModeActive"
@@ -18,6 +19,7 @@
                 alt="ParamQ logo"
               />
             </li>
+            -->
             <li v-for="(title, index) in titleStack" :key="index">
               {{ title }}
             </li>
@@ -28,10 +30,12 @@
         <div class="level-item">
           <div class="buttons is-right">
             <slot name="right">
+              <!--
               <nuxt-link to="/" class="button is-light">
                 <b-icon icon="home" custom-size="default" />
                 <span>Dashboard</span>
               </nuxt-link>
+              -->
             </slot>
           </div>
         </div>

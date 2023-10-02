@@ -17,6 +17,7 @@
       </p>
     </div>
     <div class="navbar-brand is-right">
+      <!--
       <p
         style="cursor:pointer"
         class="navbar-item navbar-item-menu-toggle is-hidden-desktop"
@@ -24,6 +25,7 @@
       >
         <b-icon icon="bell" custom-size="default" />
       </p>
+      -->
       <p
         style="cursor:pointer"
         class="navbar-item navbar-item-menu-toggle is-hidden-desktop"
@@ -59,6 +61,7 @@
             </a>
           </div>
         </nav-bar-menu>
+        <!--
         <a
           class="navbar-item has-divider is-desktop-icon-only"
           title="Dark mode"
@@ -79,6 +82,7 @@
           />
           <span>Mensajes del sistema</span>
         </a>
+        -->
       </div>
     </div>
   </nav>
