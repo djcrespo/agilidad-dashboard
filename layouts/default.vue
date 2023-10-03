@@ -22,7 +22,9 @@
       @menu-click="menuClick"
       @close="menuSecondaryCloseClick"
     />
+    <!--
     <title-bar :title-stack="titleStack" />
+    -->
     <nuxt />
     <aside-right />
   </div>
@@ -71,6 +73,18 @@ export default {
             },
             {
               to: '/projects',
+              label: 'Proyectos',
+              state: '1primary',
+              icon: 'office-building-cog-outline'
+            },
+            {
+              to: '/following',
+              state: '1primary',
+              icon: 'calendar-blank',
+              label: 'Calendarización'
+            },
+            {
+              to: '/following',
               state: '1primary',
               icon: 'folder-search-outline',
               label: 'Seguimiento'
@@ -129,14 +143,8 @@ export default {
             //   icon: 'lock'
             // },
             {
-              to: '/projects',
-              label: 'Proyectos',
-              state: '1primary',
-              icon: 'office-building-cog-outline'
-            },
-            {
               to: '/reporting',
-              label: 'Catálogo',
+              label: 'Catálogo interno',
               state: '1primary',
               icon: 'format-list-bulleted'
             },

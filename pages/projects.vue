@@ -12,13 +12,17 @@
         <div class="level-item">
           <b-button
             class="is-success"
+            icon-left="plus"
             @click="activeModal = true"
           >
             Nuevo registro
           </b-button>
         </div>
         <div class="level-item">
-          <b-button class="is-success is-light">
+          <b-button
+            class="is-success is-light"
+            icon-left="file-excel"
+          >
             Descargar registros
           </b-button>
         </div>
@@ -28,11 +32,14 @@
       <div class="column">
         <info-table
           :endpoint="endpoint"
+          :refresh="actionRefresh"
+          @reset="actionRefresh = false"
         />
       </div>
     </div>
     <new-project
       :is-active="activeModal"
+      @close="refresh"
     />
   </div>
 </template>
@@ -48,10 +55,15 @@ export default {
       projects: [],
       endpoint: 'modules/projects/getProjects',
       query: {},
-      activeModal: false
+      activeModal: false,
+      actionRefresh: false
     }
   },
   methods: {
+    refresh () {
+      this.actionRefresh = true
+      this.activeModal = false
+    }
   },
   head () {
     return {
