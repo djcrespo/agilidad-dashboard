@@ -48,6 +48,7 @@
 import { mapState } from 'vuex'
 export default {
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     handleSubmit: Function,
     saving: Boolean,
     firstStep: Boolean,

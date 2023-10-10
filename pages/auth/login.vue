@@ -4,6 +4,7 @@
       <div class="hero-body">
         <div class="login">
           <div class="card box">
+            <!--
             <div class="has-text-centered">
               <figure class="avatar">
                 <img
@@ -15,6 +16,7 @@
                 >
               </figure>
             </div>
+            -->
             <form @submit="false">
               <BInputWithValidation
                 v-model="form.username"

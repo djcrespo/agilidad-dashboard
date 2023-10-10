@@ -30,13 +30,13 @@
     </nav>
     <div class="columns">
       <div class="column">
-        <projects-table
+        <concepts-table
           :refresh="actionRefresh"
           @reset="actionRefresh = false"
         />
       </div>
     </div>
-    <new-project
+    <new-concept
       :is-active="activeModal"
       @close="refresh"
     />
@@ -45,13 +45,12 @@
 
 <script>
 export default {
-  name: 'Projects',
+  name: 'Concepts',
   fetch () {
-    this.$store.commit('setTitleStack', ['Proyectos'])
+    this.$store.commit('setTitleStack', ['Conceptos internos'])
   },
   data () {
     return {
-      projects: [],
       query: {},
       activeModal: false,
       actionRefresh: false
@@ -65,7 +64,7 @@ export default {
   },
   head () {
     return {
-      title: 'Proyectos'
+      title: 'Conceptos internos'
     }
   }
 }

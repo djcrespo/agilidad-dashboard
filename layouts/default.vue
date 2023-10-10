@@ -143,7 +143,7 @@ export default {
             //   icon: 'lock'
             // },
             {
-              to: '/reporting',
+              to: '/concepts',
               label: 'Catálogo interno',
               state: '1primary',
               icon: 'format-list-bulleted'
