@@ -34,6 +34,7 @@
     "nuxt-route-meta": "^2.0.3",
     "perfect-scrollbar": "^1.5.0",
     "spinkit": "^1.2.5",
+    "v-calendar": "^2.4.1",
     "vee-validate": "^3.4.5",
     "vue-chartjs": "^3.5.0",
     "vue-float-action-button": "^0.7.9",

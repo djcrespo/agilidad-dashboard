@@ -78,7 +78,7 @@ export default {
               icon: 'office-building-cog-outline'
             },
             {
-              to: '/following',
+              to: '/calendar',
               state: '1primary',
               icon: 'calendar-blank',
               label: 'Calendarización'
