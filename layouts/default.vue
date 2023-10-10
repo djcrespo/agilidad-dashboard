@@ -168,7 +168,7 @@ export default {
       return [
         {
           action: 'logout',
-          icon: 'signout',
+          icon: 'exit-to-app',
           label: 'Salir',
           state: 'danger'
         }

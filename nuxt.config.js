@@ -62,7 +62,8 @@ export default {
     { src: '~/plugins/after-each.js', mode: 'client' },
     { src: '~/plugins/particles.js', mode: 'client' },
     { src: '~/plugins/vue-float-action-button.js', mode: 'client' },
-    { src: '~/plugins/pop-up-window.js', mode: 'client' }
+    { src: '~/plugins/pop-up-window.js', mode: 'client' },
+    { src: '~/plugins/vcalendar.js', mode: 'client' }
   ],
   /*
    ** Nuxt.js dev-modules

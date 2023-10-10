@@ -11,15 +11,14 @@
       <span v-if="!isSecondary">
         <template>
           <div class="columns is-mobile">
-            <!--
-            <div class="column">
-              <span><img
-                style="width: 35px; padding-top: 10px"
-                src="@/assets/logo.png"
-                alt="ParamQ logo"
-              ></span>
+            <div class="column mt-2 has-text-centered">
+              <span>
+                <b-icon
+                  icon="book"
+                  size="is-medium"
+                />
+              </span>
             </div>
-            -->
             <div
               v-if="isAsideExpanded || isAsideMobileExpanded"
               class="column is-9"
