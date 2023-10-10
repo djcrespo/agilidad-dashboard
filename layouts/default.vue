@@ -155,7 +155,7 @@ export default {
               icon: 'clipboard-account-outline'
             },
             {
-              to: '/reporting',
+              to: '/contractors',
               label: 'Contratistas',
               state: '1primary',
               icon: 'account-hard-hat-outline'

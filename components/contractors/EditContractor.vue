@@ -3,24 +3,37 @@
     v-model="isActive"
     :can-cancel="false"
     :destroy-on-hide="false"
-    :has-modal-card="true"
+    :has-modal-card="false"
   >
-    <b-loading v-model="isLoading" :is-full-page="false" :can-cancel="true" />
-    <div class="card">
-      <div class="card-header">
-        <p class="card-header-title">
-          Editar concepto
+    <b-loading v-model="isLoading" :is-full-page="false" :can-cancel="false" />
+    <div class="modal-card" style="width: auto">
+      <div class="modal-card-head">
+        <p class="modal-card-title">
+          Nuevo proyecto
         </p>
       </div>
-      <div class="card-content">
+      <section class="modal-card-body">
         <ValidationObserver v-slot="{ handleSubmit }">
           <form @submit.prevent="handleSubmit(createOrUpdate)">
+            <div class="divider">
+              <strong>Datos del contratista</strong>
+            </div>
             <div class="columns">
               <div class="column">
                 <BInputWithValidation
-                  v-model="form.key_concept"
-                  label="Clave del concepto"
-                  name="clave del concepto"
+                  v-model="form.name"
+                  label="Nombre(s)"
+                  name="nombre(s)"
+                  label-position="on-border"
+                  rules="required"
+                  normal
+                />
+              </div>
+              <div class="column">
+                <BInputWithValidation
+                  v-model="form.last_name"
+                  label="Apellido(s)"
+                  name="apellido(s)"
                   label-position="on-border"
                   rules="required"
                   normal
@@ -29,31 +42,6 @@
             </div>
             <div class="columns">
               <div class="column">
-                <BInputWithValidation
-                  v-model="form.uni"
-                  label="Unidad de medida"
-                  name="unidad de medida"
-                  label-position="on-border"
-                  rules="required"
-                  normal
-                />
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column">
-                <BInputWithValidation
-                  v-model="form.description"
-                  label="Descripción"
-                  name="descripción"
-                  label-position="on-border"
-                  type="textarea"
-                  rules="required"
-                  normal
-                />
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column has-text-centered">
                 <ButtonGroup
                   :handle-submit="handleSubmit"
                   saving
@@ -64,20 +52,20 @@
             </div>
           </form>
         </ValidationObserver>
-      </div>
+      </section>
     </div>
   </b-modal>
 </template>
 
 <script>
 export default {
-  name: 'EditConcept',
+  name: 'EditContractor',
   props: {
     isActive: {
       type: Boolean,
       default: false
     },
-    concept: {
+    contractor: {
       type: Object,
       // eslint-disable-next-line vue/require-valid-default-prop
       default: {}
@@ -85,12 +73,12 @@ export default {
   },
   data () {
     return {
-      form: this.concept,
+      form: {},
       isLoading: false
     }
   },
   watch: {
-    concept (newVal, oldVal) {
+    contractor (newVal, oldVal) {
       if (newVal) {
         this.form = newVal
       }
@@ -100,12 +88,9 @@ export default {
     async createOrUpdate () {
       this.isLoading = true
       try {
-        await this.$store.dispatch('modules/concepts/createOrUpdate', this.form)
-        this.form = {
-          key_concept: '',
-          uni: '',
-          description: ''
-        }
+        console.log(this.form)
+        await this.$store.dispatch('modules/contractors/createOrUpdate', this.form)
+        this.form = {}
         this.isLoading = false
         this.$emit('close')
       } catch (error) {
@@ -125,11 +110,6 @@ export default {
 
 <style>
 .card {
-  height: 100%;
   background-color: white !important;
-}
-
-.level {
-  width: 100%;
 }
 </style>
