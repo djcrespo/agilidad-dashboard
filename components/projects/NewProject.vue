@@ -44,7 +44,7 @@
               <div class="column">
                 <BSelectWithValidation
                   v-model="form.ProjectDetails.type_project"
-                  :options="optionsTypes"
+                  :options="typesProject"
                   label="Tipo de proyecto"
                   name="tipo de proyecto"
                   label-position="on-border"
@@ -52,6 +52,76 @@
                   normal
                 />
               </div>
+              <div class="column">
+                <BSelectWithValidation
+                  v-model="form.ProjectDetails.type_resource"
+                  :options="typesResource"
+                  label="Tipo de recurso"
+                  name="tipo de recurso"
+                  label-position="on-border"
+                  rules="required"
+                  normal
+                />
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <BInputWithValidation
+                  v-model="form.ProjectDetails.description"
+                  rules="required"
+                  name="descripción"
+                  label="Descripción"
+                  type="textarea"
+                  label-position="on-border"
+                  normal
+                />
+              </div>
+            </div>
+            <div class="divider">
+              <strong>Presupuesto(s)</strong>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <BNumberInputWithValidation
+                  v-model="form.ProjectDetails.baseBudget"
+                  label="Presupuesto base"
+                  name="presupuesto base"
+                  label-position="on-border"
+                  rules="required"
+                />
+              </div>
+              <div class="column">
+                <BNumberInputWithValidation
+                  v-model="form.ProjectDetails.requestedBudget"
+                  label="Presupuesto solicitado"
+                  name="presupuesto solicitado"
+                  label-position="on-border"
+                  rules="required"
+                />
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <BNumberInputWithValidation
+                  v-model="form.ProjectDetails.executionBudget"
+                  label="Presupuesto en ejecución"
+                  name="presupuesto en ejecución"
+                  label-position="on-border"
+                  rules="required"
+                />
+              </div>
+              <div class="column">
+                <BNumberInputWithValidation
+                  v-model="form.ProjectDetails.contratedBudget"
+                  label="Presupuesto contratado"
+                  name="presupuesto contratado"
+                  label-position="on-border"
+                  rules="required"
+                />
+              </div>
+            </div>
+            <div class="divider">
+              <strong>Calendario general</strong>
             </div>
             <div class="columns">
               <div class="column">
@@ -69,19 +139,6 @@
                     inline
                   />
                 </b-field>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column">
-                <BInputWithValidation
-                  v-model="form.ProjectDetails.description"
-                  rules="required"
-                  name="descripción"
-                  label="Descripción"
-                  type="textarea"
-                  label-position="on-border"
-                  normal
-                />
               </div>
             </div>
             <div class="divider">
@@ -193,32 +250,48 @@ export default {
           date_end: new Date()
         }
       },
-      optionsTypes: [
-        {
-          label: 'option1',
-          value: 1
-        },
-        {
-          label: 'option2',
-          value: 2
-        }
-      ],
       isLoading: false,
-      activeStep: 0
+      activeStep: 0,
+      typesProject: [],
+      typesResource: []
     }
   },
+  mounted () {
+    this.getTypesProject()
+    this.getTypesResource()
+  },
   methods: {
+    async getTypesProject () {
+      try {
+        const res = await this.$store.dispatch('modules/typeProjects/getTypeProjects')
+        this.typesProject = res.results
+        // console.log(this.typesProject)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async getTypesResource () {
+      try {
+        const res = await this.$store.dispatch('modules/typeResource/getTypeResources')
+        this.typesResource = res.results
+        // console.log(this.typesResource)
+      } catch (error) {
+        console.log(error)
+      }
+    },
     async createOrUpdate () {
+      // console.log(this.form)
       this.isLoading = true
       try {
-        console.log(this.form)
+        // console.log(this.form)
         await this.$store.dispatch('modules/projects/createOrUpdate', this.form)
         this.form = {
           ProjectDetails: {
             number_contract: '',
             name_project: '',
             description: '',
-            type_project: null
+            type_project: null,
+            type_resource: null
           },
           CalendarProject: {
             date_init: new Date(),

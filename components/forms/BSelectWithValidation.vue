@@ -29,8 +29,8 @@
           </option>
           <option
             v-for="option in $attrs.options"
-            :key="option.value || option"
-            :value="option.value"
+            :key="option.id || option"
+            :value="option.id"
           >
             {{ option.label || option }}
           </option>
