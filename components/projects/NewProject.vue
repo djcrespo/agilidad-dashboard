@@ -90,22 +90,13 @@
                   rules="required"
                 />
               </div>
+            </div>
+            <div class="columns">
               <div class="column">
                 <BNumberInputWithValidation
                   v-model="form.ProjectDetails.requestedBudget"
                   label="Presupuesto solicitado"
                   name="presupuesto solicitado"
-                  label-position="on-border"
-                  rules="required"
-                />
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column">
-                <BNumberInputWithValidation
-                  v-model="form.ProjectDetails.executionBudget"
-                  label="Presupuesto en ejecución"
-                  name="presupuesto en ejecución"
                   label-position="on-border"
                   rules="required"
                 />
@@ -118,6 +109,9 @@
                   label-position="on-border"
                   rules="required"
                 />
+              </div>
+              <div class="column">
+                Economía = {{ form.ProjectDetails.contratedBudget && form.ProjectDetails.requestedBudget ? '$ ' + (form.ProjectDetails.requestedBudget - form.ProjectDetails.contratedBudget) : ' ' }}
               </div>
             </div>
             <div class="divider">
