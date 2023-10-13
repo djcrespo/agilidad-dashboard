@@ -91,6 +91,8 @@ export default {
       '~/components',
       '~/components/base',
       '~/components/projects',
+      '~/components/typeProjects',
+      '~/components/typeResource',
       '~/components/concepts',
       '~/components/contractors',
       '~/components/forms',

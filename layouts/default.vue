@@ -149,11 +149,23 @@ export default {
               icon: 'format-list-bulleted'
             },
             {
-              to: '/reporting',
-              label: 'Residentes',
+              to: '/projectTypes',
+              label: 'Tipos de proyectos',
               state: '1primary',
-              icon: 'clipboard-account-outline'
+              icon: 'wrench-outline'
             },
+            {
+              to: '/resourcesType',
+              label: 'Tipos de recursos',
+              state: '1primary',
+              icon: 'cash-multiple'
+            },
+            // {
+            //  to: '/reporting',
+            //  label: 'Residentes',
+            //  state: '1primary',
+            //  icon: 'clipboard-account-outline'
+            // },
             {
               to: '/contractors',
               label: 'Contratistas',

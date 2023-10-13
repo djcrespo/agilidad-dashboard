@@ -14,8 +14,9 @@
             <div class="column mt-2 has-text-centered">
               <span>
                 <b-icon
-                  icon="book"
+                  icon="book-edit-outline"
                   size="is-medium"
+                  type="is-primary"
                 />
               </span>
             </div>
