@@ -90,7 +90,7 @@ export default {
               label: 'Seguimiento'
             },
             {
-              to: '/invertory',
+              to: '/generators',
               state: '1primary',
               icon: 'file-multiple-outline',
               label: 'Generadoras'
@@ -101,47 +101,9 @@ export default {
               icon: 'file-cog-outline',
               label: 'Estimaciones'
             }
-            /*
-            {
-              to: '/policies',
-              label: 'Pólizas',
-              state: '1warning',
-              icon: 'shield-plus'
-            },
-            {
-              to: '/clients',
-              label: 'Clientes',
-              state: '1success',
-              icon: 'users-alt'
-            },
-            {
-              to: '/employees',
-              label: 'Vendedores',
-              state: '1orange',
-              icon: 'user-md'
-            },
-            {
-              to: '/insurances',
-              label: 'Aseguradoras',
-              state: '1info',
-              icon: 'university'
-            },
-            {
-              to: '/products',
-              label: 'Productos',
-              state: '1white',
-              icon: 'archive'
-            }
-            */
           ],
           'Administrativo',
           [
-            // {
-            //   to: '/roles',
-            //   label: 'Roles',
-            //   state: '1warning',
-            //   icon: 'lock'
-            // },
             {
               to: '/concepts',
               label: 'Catálogo interno',
@@ -160,12 +122,6 @@ export default {
               state: '1primary',
               icon: 'cash-multiple'
             },
-            // {
-            //  to: '/reporting',
-            //  label: 'Residentes',
-            //  state: '1primary',
-            //  icon: 'clipboard-account-outline'
-            // },
             {
               to: '/contractors',
               label: 'Contratistas',
@@ -243,7 +199,10 @@ export default {
       this.$store.commit('overlayToggle', false)
     },
     menuSecondaryClose () {
-      this.menuSecondary = this.menuSecondaryLabel = this.menuSecondaryIcon = null
+      this.menuSecondary =
+        this.menuSecondaryLabel =
+        this.menuSecondaryIcon =
+          null
       this.$store.commit('asideActiveForcedKeyToggle', null)
     }
   }

@@ -1,9 +1,10 @@
 import request from './config'
 
-export const getProjects = () => {
+export const getProjects = (params) => {
   return request({
     url: '/projects/',
-    method: 'GET'
+    method: 'GET',
+    params
   })
 }
 

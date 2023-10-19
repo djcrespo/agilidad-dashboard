@@ -95,6 +95,7 @@ export default {
       '~/components/typeResource',
       '~/components/concepts',
       '~/components/contractors',
+      '~/components/generatorsComponents',
       '~/components/forms',
       '~/components/cards'
     ]
