@@ -123,6 +123,12 @@ export default {
               icon: 'cash-multiple'
             },
             {
+              to: '/statusGenerator',
+              label: 'Estados de generadoras',
+              state: '1primary',
+              icon: 'account-hard-hat-outline'
+            },
+            {
               to: '/contractors',
               label: 'Contratistas',
               state: '1primary',

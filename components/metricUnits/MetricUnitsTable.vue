@@ -6,47 +6,11 @@
     >
       <b-table-column
         v-slot="props"
-        field="key_project"
-        label="Clave del proyecto"
+        field="label"
+        label="Tipo de proyecto"
         centered
       >
-        {{ props.row.key_project ? props.row.key_project : 'Sin clave' }}
-      </b-table-column>
-
-      <b-table-column
-        v-slot="props"
-        field="name_project"
-        label="Nombre del proyecto"
-        centered
-      >
-        {{ props.row.projectDetails && props.row.projectDetails.name_project ? props.row.projectDetails.name_project : 'Sin nombre' }}
-      </b-table-column>
-
-      <b-table-column
-        v-slot="props"
-        field="status"
-        label="Estado general del proyecto"
-        centered
-      >
-        {{ props.row.status ? props.row.status : 'Sin estado' }}
-      </b-table-column>
-
-      <b-table-column
-        v-slot="props"
-        field="projectDetails.date_init"
-        label="Fecha de inicio del projecto"
-        centered
-      >
-        {{ props.row.projectDetails && props.row.projectDetails.date_init ? new Date(props.row.projectDetails.date_init).toLocaleDateString() : 'Sin fecha' }}
-      </b-table-column>
-
-      <b-table-column
-        v-slot="props"
-        field="projectDetails.date_end"
-        label="Fecha de finalización del projecto"
-        centered
-      >
-        {{ props.row.projectDetails && props.row.projectDetails.date_end ? new Date(props.row.projectDetails.date_end).toLocaleDateString() : 'Sin fecha' }}
+        {{ props.row.label ? props.row.label : 'Sin clave' }}
       </b-table-column>
 
       <b-table-column
@@ -83,9 +47,9 @@
       </template>
     </b-table>
 
-    <edit-project
+    <edit-type-project
       :is-active="activeEdit"
-      :project="projectEdit"
+      :object-edit="projectEdit"
       @close="activeEdit = false"
     />
   </div>
@@ -129,7 +93,7 @@ export default {
   methods: {
     async getObjects () {
       try {
-        const res = await this.$store.dispatch('modules/projects/getProjects', this.query)
+        const res = await this.$store.dispatch('modules/typeProjects/getTypeProjects', this.query)
         this.data = res.results
         console.log(res)
       } catch (error) {
@@ -144,7 +108,7 @@ export default {
     async deleteItem (id) {
       this.loadingTable = true
       try {
-        await this.$store.dispatch('modules/projects/deleteProject', id)
+        await this.$store.dispatch('modules/typeProjects/deleteTypeProject', id)
         this.getObjects()
         this.loadingTable = false
       } catch (error) {

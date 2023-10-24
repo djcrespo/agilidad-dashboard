@@ -6,47 +6,11 @@
     >
       <b-table-column
         v-slot="props"
-        field="project.key_project"
-        label="Clave del proyecto"
+        field="label"
+        label="Estado"
         centered
       >
-        {{ props.row.project.key_project ? props.row.project.key_project : 'Sin clave' }}
-      </b-table-column>
-
-      <b-table-column
-        v-slot="props"
-        field="project_details.name_project"
-        label="Nombre del proyecto"
-        centered
-      >
-        {{ props.row.project_details && props.row.project_details.name_project ? props.row.project_details.name_project : 'Sin nombre' }}
-      </b-table-column>
-
-      <b-table-column
-        v-slot="props"
-        field="project.status"
-        label="Estado general del proyecto"
-        centered
-      >
-        {{ props.row.project.status ? props.row.project.status : 'Sin estado' }}
-      </b-table-column>
-
-      <b-table-column
-        v-slot="props"
-        field="project_details.date_init"
-        label="Fecha de inicio del projecto"
-        centered
-      >
-        {{ props.row.project_details && props.row.project_details.date_init ? new Date(props.row.project_details.date_init).toLocaleDateString() : 'Sin fecha' }}
-      </b-table-column>
-
-      <b-table-column
-        v-slot="props"
-        field="project_details.date_end"
-        label="Fecha de finalización del projecto"
-        centered
-      >
-        {{ props.row.project_details && props.row.project_details.date_end ? new Date(props.row.project_details.date_end).toLocaleDateString() : 'Sin fecha' }}
+        {{ props.row.label ? props.row.label : 'Estado no establecido' }}
       </b-table-column>
 
       <b-table-column
@@ -83,17 +47,17 @@
       </template>
     </b-table>
 
-    <edit-project
+    <edit-type-project
       :is-active="activeEdit"
-      :project="projectEdit"
-      @close="refreshTable"
+      :object-edit="projectEdit"
+      @close="activeEdit = false"
     />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ProjectsTable',
+  name: 'StatusGeneratorTable',
   props: {
     endpoint: {
       type: String,
@@ -127,22 +91,16 @@ export default {
     this.getObjects()
   },
   methods: {
-    refreshTable () {
-      this.activeEdit = false
-      this.projectEdit = {}
-      this.getObjects()
-    },
     async getObjects () {
       try {
-        this.loadingTable = true
-        const res = await this.$store.dispatch('modules/projectInfo/getProjectInfos', this.query)
+        const res = await this.$store.dispatch('modules/statusGenerator/getStatuses', this.query)
         this.data = res.results
-        // console.log(res.results)
-        this.loadingTable = false
+        console.log(res)
       } catch (error) {
         console.log(error)
       }
     },
+
     editItem (object) {
       this.projectEdit = object
       this.activeEdit = true
@@ -150,7 +108,7 @@ export default {
     async deleteItem (id) {
       this.loadingTable = true
       try {
-        await this.$store.dispatch('modules/projects/deleteProject', id)
+        await this.$store.dispatch('modules/statusGenerator/deleteStatus', id)
         this.getObjects()
         this.loadingTable = false
       } catch (error) {

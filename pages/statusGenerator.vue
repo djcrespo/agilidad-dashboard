@@ -18,25 +18,17 @@
             Nuevo registro
           </b-button>
         </div>
-        <div class="level-item">
-          <b-button
-            class="is-success is-light"
-            icon-left="file-excel"
-          >
-            Descargar registros
-          </b-button>
-        </div>
       </div>
     </nav>
     <div class="columns">
       <div class="column">
-        <generators-table
+        <status-generator-table
           :refresh="actionRefresh"
           @reset="actionRefresh = false"
         />
       </div>
     </div>
-    <new-asignation
+    <new-status-generator
       :is-active="activeModal"
       @close="refresh"
     />
@@ -45,9 +37,9 @@
 
 <script>
 export default {
-  name: 'Generators',
+  name: 'StatusGenerator',
   fetch () {
-    this.$store.commit('setTitleStack', ['Generadoras'])
+    this.$store.commit('setTitleStack', ['Estados en las generadoras'])
   },
   data () {
     return {
@@ -58,13 +50,14 @@ export default {
   },
   methods: {
     refresh () {
+      console.log('refrescar')
       this.actionRefresh = true
       this.activeModal = false
     }
   },
   head () {
     return {
-      title: 'Generadoras'
+      title: 'Estados (generadoras)'
     }
   }
 }

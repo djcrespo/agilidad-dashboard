@@ -13,39 +13,42 @@
         </p>
       </div>
       <section class="modal-card-body">
-        <form>
-          <div class="columns">
-            <div class="column">
-              <b-field label="Selecciona un proyecto">
-                <b-autocomplete
-                  :data="projects"
-                  field="key_project"
-                  :loading="isFetching"
-                  :open-on-focus="true"
-                  @typing="getProjects"
-                  @select="option => form.project = option.id"
-                >
-                  <template slot-scope="props">
-                    <div class="media">
-                      <div class="media-content">
-                        {{ props.option.key_project }}
+        <ValidationObserver v-slot="{ handleSubmit }">
+          <form @submit.prevent="handleSubmit(createOrUpdate)">
+            <div class="columns">
+              <div class="column">
+                <b-field label="Selecciona un proyecto">
+                  <b-autocomplete
+                    :data="projects"
+                    field="key_project"
+                    :loading="isFetching"
+                    :open-on-focus="true"
+                    @typing="getProjects"
+                    @select="option => form.project = option.id"
+                  >
+                    <template slot-scope="props">
+                      <div class="media">
+                        <div class="media-content">
+                          {{ props.option.key_project }}
+                        </div>
                       </div>
-                    </div>
-                  </template>
-                </b-autocomplete>
-              </b-field>
+                    </template>
+                  </b-autocomplete>
+                </b-field>
+              </div>
             </div>
-          </div>
-          <div class="columns">
-            <div class="column">
-              <ButtonGroup
-                saving
-                @save="createOrUpdate"
-                @cancel="cancel"
-              />
+            <div class="columns">
+              <div class="column">
+                <ButtonGroup
+                  :handle-submit="handleSubmit"
+                  saving
+                  @save="createOrUpdate"
+                  @cancel="cancel"
+                />
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </ValidationObserver>
       </section>
     </div>
   </b-modal>
@@ -79,16 +82,26 @@ export default {
     async getProjects (text) {
       if (text) {
         try {
-          this.query.search = text
-          const res = await this.$store.dispatch('modules/projects/getProjects', this.query)
+          this.queryProject.search = text
+          const res = await this.$store.dispatch('modules/projects/getProjects', this.queryProject)
           this.projects = res.results
         } catch (error) {
           console.log(error)
         }
       } else {
         try {
-          const res = await this.$store.dispatch('modules/projects/getProjects', this.query)
+          const res = await this.$store.dispatch('modules/projects/getProjects', this.queryProject)
           this.projects = res.results
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    },
+    getPersons (text) {
+      if (text) {
+        try {
+          this.queryPerson.search = text
+          // const res = await this.$store.dispatch('modules//')
         } catch (error) {
           console.log(error)
         }
@@ -97,7 +110,7 @@ export default {
     async createOrUpdate () {
       this.isLoading = true
       try {
-        await this.$store.dispatch('modules/projects/createOrUpdate', this.form)
+        await this.$store.dispatch('modules/projectGenerator/createOrUpdate', this.form)
         this.form = {}
         this.isLoading = false
         this.$emit('close')
