@@ -6,11 +6,38 @@
     >
       <b-table-column
         v-slot="props"
-        field="label"
-        label="Estado"
+        field="first_name"
+        label="Nombre(s)"
         centered
       >
-        {{ props.row.label ? props.row.label : 'Estado no establecido' }}
+        {{ props.row.first_name ? props.row.first_name : 'Sin nombre' }}
+      </b-table-column>
+
+      <b-table-column
+        v-slot="props"
+        field="last_name"
+        label="Apellido(s)"
+        centered
+      >
+        {{ props.row.last_name ? props.row.last_name : 'Sin apellidos' }}
+      </b-table-column>
+
+      <b-table-column
+        v-slot="props"
+        field="occupation"
+        label="Ocupación"
+        centered
+      >
+        {{ props.row.occupation ? props.row.occupation : 'Sin ocupación' }}
+      </b-table-column>
+
+      <b-table-column
+        v-slot="props"
+        field="occupation"
+        label="Ocupación"
+        centered
+      >
+        {{ props.row.email ? props.row.email : 'Sin correo electrónico' }}
       </b-table-column>
 
       <b-table-column
@@ -19,7 +46,6 @@
         centered
       >
         <div class="columns has-text-centered">
-          <!--
           <div class="column">
             <b-button
               type="is-info"
@@ -29,7 +55,6 @@
               Editar
             </b-button>
           </div>
-          -->
           <div class="column">
             <b-button
               type="is-danger"
@@ -49,9 +74,9 @@
       </template>
     </b-table>
 
-    <edit-type-project
+    <edit-type-resource
       :is-active="activeEdit"
-      :object-edit="projectEdit"
+      :object-edit="objectEdit"
       @close="activeEdit = false"
     />
   </div>
@@ -59,7 +84,7 @@
 
 <script>
 export default {
-  name: 'StatusGeneratorTable',
+  name: 'PersonsTable',
   props: {
     endpoint: {
       type: String,
@@ -73,11 +98,12 @@ export default {
   data () {
     return {
       query: {
-        limit: 10
+        limit: 10,
+        is_staff: false
       },
       data: [],
       loadingTable: false,
-      projectEdit: {},
+      objectEdit: {},
       activeEdit: false
     }
   },
@@ -95,21 +121,22 @@ export default {
   methods: {
     async getObjects () {
       try {
-        const res = await this.$store.dispatch('modules/statusGenerator/getStatuses', this.query)
+        const res = await this.$store.dispatch('modules/users/getUsers', this.query)
         this.data = res.results
         console.log(res)
       } catch (error) {
         console.log(error)
       }
     },
+
     editItem (object) {
-      this.projectEdit = object
+      this.objectEdit = object
       this.activeEdit = true
     },
     async deleteItem (id) {
       this.loadingTable = true
       try {
-        await this.$store.dispatch('modules/statusGenerator/deleteStatus', id)
+        await this.$store.dispatch('modules/users/deleteUser', id)
         this.getObjects()
         this.loadingTable = false
       } catch (error) {

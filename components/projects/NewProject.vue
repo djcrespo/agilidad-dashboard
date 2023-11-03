@@ -87,7 +87,6 @@
                   label="Presupuesto base"
                   name="presupuesto base"
                   label-position="on-border"
-                  rules="required"
                 />
               </div>
             </div>
@@ -98,7 +97,6 @@
                   label="Presupuesto solicitado"
                   name="presupuesto solicitado"
                   label-position="on-border"
-                  rules="required"
                 />
               </div>
               <div class="column">
@@ -107,7 +105,6 @@
                   label="Presupuesto contratado"
                   name="presupuesto contratado"
                   label-position="on-border"
-                  rules="required"
                 />
               </div>
               <div class="column">

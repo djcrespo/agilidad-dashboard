@@ -9,7 +9,7 @@
     <div class="modal-card" style="width: auto">
       <div class="modal-card-head">
         <p class="modal-card-title">
-          Nuevo unidad de medida
+          Nuevo personal
         </p>
       </div>
       <section class="modal-card-body">
@@ -18,10 +18,19 @@
             <div class="columns">
               <div class="column">
                 <BInputWithValidation
-                  v-model="form.label"
-                  label="Nombre de la unidad"
-                  name="nombre de la unidad"
-                  placeholder="Métros cuadrados"
+                  v-model="form.first_name"
+                  label="Nombre(s)"
+                  name="nombres(s)"
+                  label-position="on-border"
+                  rules="required"
+                  normal
+                />
+              </div>
+              <div class="column">
+                <BInputWithValidation
+                  v-model="form.last_name"
+                  label="Apellido(s)"
+                  name="apellido(s)"
                   label-position="on-border"
                   rules="required"
                   normal
@@ -31,46 +40,47 @@
             <div class="columns">
               <div class="column">
                 <BInputWithValidation
-                  v-model="unit[0]"
-                  label="Opción"
-                  name="opción"
-                  placeholder="Altura, Base, Profundidad, Pieza"
+                  v-model="form.username"
+                  label="Correo electrónico"
+                  name="Correo electrónico"
                   label-position="on-border"
+                  rules="required"
                   normal
-                />
-              </div>
-              <div class="column">
-                <BInputWithValidation
-                  v-model="unit[1]"
-                  label="Unidad de medida"
-                  name="unidad de medida"
-                  placeholder="cm, m, mm, u"
-                  label-position="on-border"
-                  normal
-                />
-              </div>
-              <div class="column">
-                <b-button
-                  type="is-success is-light"
-                  icon-right="plus"
-                  @click="addMetric"
                 />
               </div>
             </div>
             <div class="columns">
               <div class="column">
-                <b-taglist>
-                  <div v-for="(object, index) in form.metrics_array" :key="object[0]" class="m-2">
-                    <b-taglist attached>
-                      <b-tag type="is-dark">
-                        {{ object[0] }}
-                      </b-tag>
-                      <b-tag type="is-light" closable @close="deleteMetric(index)">
-                        {{ object[1] }}
-                      </b-tag>
-                    </b-taglist>
-                  </div>
-                </b-taglist>
+                <BInputWithValidation
+                  v-model="form.password"
+                  label="Contraseña"
+                  name="contraseña"
+                  label-position="on-border"
+                  type="password"
+                  rules="required"
+                  normal
+                />
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <b-field
+                  label="Ocupación o rol"
+                  native-value="on-border"
+                >
+                  <b-select
+                    v-model="form.group"
+                    @input="selectGroup"
+                  >
+                    <option
+                      v-for="option in groups"
+                      :key="option.id"
+                      :value="option"
+                    >
+                      {{ option.name }}
+                    </option>
+                  </b-select>
+                </b-field>
               </div>
             </div>
             <div class="columns">
@@ -92,7 +102,7 @@
 
 <script>
 export default {
-  name: 'NewMetricUnit',
+  name: 'NewPerson',
   props: {
     isActive: {
       type: Boolean,
@@ -101,25 +111,22 @@ export default {
   },
   data () {
     return {
-      form: {
-        metrics_array: []
-      },
-      unit: ['', ''],
-      isLoading: false
+      form: {},
+      isLoading: false,
+      groups: []
     }
+  },
+  mounted () {
+    this.getGroups()
   },
   methods: {
     async createOrUpdate () {
       this.isLoading = true
+      this.form.email = this.form.username
+      this.form.occupation = this.form.group.name
       try {
-        await this.$store.dispatch(
-          'modules/metricUnits/createOrUpdate',
-          this.form
-        )
-        this.form = {
-          metrics_array: []
-        }
-        this.unit = ['', '']
+        await this.$store.dispatch('modules/users/createOrUpdate', this.form)
+        this.form = {}
         this.isLoading = false
         this.$emit('close')
       } catch (error) {
@@ -130,23 +137,21 @@ export default {
       }
     },
     cancel () {
-      this.form = {
-        metrics_array: []
-      }
-      this.unit = ['', '']
+      this.form = {}
       this.$emit('close')
     },
-    // individual
-    addMetric () {
-      this.form.metrics_array.push(this.unit)
-      this.unit = ['', '']
-    },
-    deleteMetric (index) {
-      if (this.form.metrics_array.length === 1) {
-        this.form.metrics_array = []
-      } else {
-        this.form.metrics_array.splice(index, 1)
+    async getGroups () {
+      try {
+        const res = await this.$store.dispatch('modules/groups/getGroups')
+        this.groups = res.results
+        // console.log(res.results)
+      } catch (error) {
+        console.log(error)
       }
+    },
+    selectGroup (value) {
+      this.form.groups = []
+      this.form.groups.push(value.id)
     }
   }
 }

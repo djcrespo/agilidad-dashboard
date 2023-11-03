@@ -1,19 +1,6 @@
 <template>
   <div class="container my-2">
-    <div class="columns">
-      <div class="column">
-        <b-notification
-          type="is-info is-light"
-          aria-close-label="Close notification"
-          :closable="false"
-          has-icon
-        >
-          Aquí podrás visualizar los <strong>números generadores</strong>,
-          <strong>catálogo de conceptos por proyectos</strong> y las
-          <strong>personas</strong> asignadas al proyecto.
-        </b-notification>
-      </div>
-    </div>
+    <!-- Main container -->
     <nav class="level">
       <!-- Left side -->
       <div class="level-left">
@@ -22,7 +9,6 @@
 
       <!-- Right side -->
       <div class="level-right">
-        <!--
         <div class="level-item">
           <b-button
             class="is-success"
@@ -32,9 +18,11 @@
             Nuevo registro
           </b-button>
         </div>
-        -->
         <div class="level-item">
-          <b-button class="is-success is-light" icon-left="file-excel">
+          <b-button
+            class="is-success is-light"
+            icon-left="file-excel"
+          >
             Descargar registros
           </b-button>
         </div>
@@ -42,20 +30,24 @@
     </nav>
     <div class="columns">
       <div class="column">
-        <generators-table
+        <type-projects-table
           :refresh="actionRefresh"
           @reset="actionRefresh = false"
         />
       </div>
     </div>
+    <new-type-project
+      :is-active="activeModal"
+      @close="refresh"
+    />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Generators',
+  name: 'Estimations',
   fetch () {
-    this.$store.commit('setTitleStack', ['Generadoras'])
+    this.$store.commit('setTitleStack', ['Estimaciones'])
   },
   data () {
     return {
@@ -72,7 +64,7 @@ export default {
   },
   head () {
     return {
-      title: 'Generadoras'
+      title: 'Estimaciones'
     }
   }
 }

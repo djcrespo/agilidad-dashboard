@@ -7,10 +7,35 @@
       <b-table-column
         v-slot="props"
         field="label"
-        label="Tipo de proyecto"
+        label="Unidad de medida"
         centered
       >
         {{ props.row.label ? props.row.label : 'Sin clave' }}
+      </b-table-column>
+
+      <b-table-column
+        v-slot="props"
+        field="metrics_array"
+        label="Opciones y sus unidades"
+        centered
+      >
+        <b-taglist v-if="props.row.metrics_array">
+          <div v-for="object in props.row.metrics_array" :key="object[0]" class="m-2">
+            <b-taglist attached>
+              <b-tag type="is-dark">
+                {{ object[0] }}
+              </b-tag>
+              <b-tag type="is-light">
+                {{ object[1] }}
+              </b-tag>
+            </b-taglist>
+          </div>
+        </b-taglist>
+        <p
+          v-else
+        >
+          Sin medidas
+        </p>
       </b-table-column>
 
       <b-table-column
@@ -57,7 +82,7 @@
 
 <script>
 export default {
-  name: 'ProjectsTable',
+  name: 'MetricUnitsTable',
   props: {
     endpoint: {
       type: String,
@@ -93,9 +118,8 @@ export default {
   methods: {
     async getObjects () {
       try {
-        const res = await this.$store.dispatch('modules/typeProjects/getTypeProjects', this.query)
+        const res = await this.$store.dispatch('modules/metricUnits/getMetricUnits', this.query)
         this.data = res.results
-        console.log(res)
       } catch (error) {
         console.log(error)
       }
@@ -108,7 +132,7 @@ export default {
     async deleteItem (id) {
       this.loadingTable = true
       try {
-        await this.$store.dispatch('modules/typeProjects/deleteTypeProject', id)
+        await this.$store.dispatch('modules/metricUnits/deleteMetricUnit', id)
         this.getObjects()
         this.loadingTable = false
       } catch (error) {

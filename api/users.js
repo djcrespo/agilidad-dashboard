@@ -26,3 +26,10 @@ export const createUser = data => {
     }
   })
 }
+
+export const deleteUser = id => {
+  return request({
+    url: '/users/' + id + '/',
+    method: 'DELETE'
+  })
+}

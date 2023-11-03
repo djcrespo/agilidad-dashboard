@@ -3,14 +3,33 @@
     <b-table
       :data="data"
       bordered
+      :loading="loadingTable"
     >
       <b-table-column
         v-slot="props"
-        field="label"
-        label="Estado"
+        field="key_concept"
+        label="Clave del concepto"
         centered
       >
-        {{ props.row.label ? props.row.label : 'Estado no establecido' }}
+        {{ props.row.key_concept ? props.row.key_concept : 'Sin clave' }}
+      </b-table-column>
+
+      <b-table-column
+        v-slot="props"
+        field="description"
+        label="Descripción"
+        centered
+      >
+        {{ props.row.description ? props.row.description : 'Sin descripción' }}
+      </b-table-column>
+
+      <b-table-column
+        v-slot="props"
+        field="uni"
+        label="Unidad de medida asignada"
+        centered
+      >
+        {{ props.row.uni ? props.row.uni : 'Sin unidad' }}
       </b-table-column>
 
       <b-table-column
@@ -19,7 +38,6 @@
         centered
       >
         <div class="columns has-text-centered">
-          <!--
           <div class="column">
             <b-button
               type="is-info"
@@ -29,7 +47,6 @@
               Editar
             </b-button>
           </div>
-          -->
           <div class="column">
             <b-button
               type="is-danger"
@@ -49,9 +66,9 @@
       </template>
     </b-table>
 
-    <edit-type-project
+    <edit-concept
       :is-active="activeEdit"
-      :object-edit="projectEdit"
+      :concept="projectEdit"
       @close="activeEdit = false"
     />
   </div>
@@ -59,9 +76,9 @@
 
 <script>
 export default {
-  name: 'StatusGeneratorTable',
+  name: 'ConceptsProjectTable',
   props: {
-    endpoint: {
+    idProject: {
       type: String,
       default: null
     },
@@ -73,7 +90,8 @@ export default {
   data () {
     return {
       query: {
-        limit: 10
+        limit: 1,
+        project: this.idProject
       },
       data: [],
       loadingTable: false,
@@ -95,13 +113,19 @@ export default {
   methods: {
     async getObjects () {
       try {
-        const res = await this.$store.dispatch('modules/statusGenerator/getStatuses', this.query)
+        this.loadingTable = true
+        const res = await this.$store.dispatch('modules/concepts/getConceptsProjectById', this.query)
         this.data = res.results
+        this.loadingTable = false
         console.log(res)
       } catch (error) {
+        this.loadingTable = false
         console.log(error)
+      } finally {
+        this.loadingTable = false
       }
     },
+
     editItem (object) {
       this.projectEdit = object
       this.activeEdit = true
@@ -109,7 +133,7 @@ export default {
     async deleteItem (id) {
       this.loadingTable = true
       try {
-        await this.$store.dispatch('modules/statusGenerator/deleteStatus', id)
+        await this.$store.dispatch('modules/concepts/deleteConcept', id)
         this.getObjects()
         this.loadingTable = false
       } catch (error) {

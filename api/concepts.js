@@ -44,3 +44,13 @@ export const updateAllConcept = (id, data) => {
     data
   })
 }
+
+// Conceptos por proyecto
+
+export const readConceptsProject = (params) => {
+  return request({
+    url: '/concepts-project/',
+    method: 'GET',
+    params
+  })
+}

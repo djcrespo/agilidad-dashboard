@@ -6,11 +6,46 @@
     >
       <b-table-column
         v-slot="props"
+        field="calendar_1.status"
+        label="Estado del proyecto en calendario planeación"
+        centered
+      >
+        {{ props.row.calendar_1.status ? props.row.calendar_1.status : 'Sin estado en el calendario del periodo 1' }}
+      </b-table-column>
+
+      <b-table-column
+        v-slot="props"
         field="project.key_project"
         label="Clave del proyecto"
         centered
       >
         {{ props.row.project.key_project ? props.row.project.key_project : 'Sin clave' }}
+      </b-table-column>
+
+      <b-table-column
+        v-slot="props"
+        field="calendar_1.date_init"
+        label="Fecha de inicio"
+        centered
+      >
+        {{ props.row.calendar_1.date_init | birthdate }}
+      </b-table-column>
+
+      <b-table-column
+        v-slot="props"
+        field="calendar_1.date_end"
+        label="Fecha de finalización"
+        centered
+      >
+        {{ props.row.calendar_1.date_end | birthdate }}
+      </b-table-column>
+
+      <b-table-column
+        v-slot="props"
+        label="Días restantes"
+        centered
+      >
+        {{ ( props.row.calendar_1.date_end - props.row.calendar_1.date_init ) / (1000 * 60 * 60 * 24) }}
       </b-table-column>
 
       <b-table-column
@@ -21,29 +56,33 @@
         <div class="columns has-text-centered">
           <div class="column">
             <b-button
-              type="is-success"
-              icon-right="eye-outline"
-              @click="viewItem(props.row.id)"
-            >
-              Ver
-            </b-button>
-          </div>
-          <div class="column">
-            <b-button
               type="is-info"
-              icon-right="pencil"
+              icon-right="account-multiple"
               @click="editItem(props.row)"
             >
-              Editar
+              Asignación de personas
             </b-button>
           </div>
+        </div>
+        <div class="columns has-text-centered">
           <div class="column">
             <b-button
-              type="is-danger"
-              icon-right="delete"
-              @click="deleteItem(props.row.id)"
+              type="is-success"
+              icon-right="library-shelves"
+              @click="viewConcepts(props.row.project.id)"
             >
-              Eliminar
+              Catálogo de conceptos
+            </b-button>
+          </div>
+        </div>
+        <div class="columns has-text-centered">
+          <div class="column">
+            <b-button
+              type="is-success"
+              icon-right="format-list-checkbox"
+              @click="viewItem(props.row.id)"
+            >
+              Números generadores
             </b-button>
           </div>
         </div>
@@ -56,7 +95,7 @@
       </template>
     </b-table>
 
-    <edit-project
+    <edit-asignation
       :is-active="activeEdit"
       :project="projectEdit"
       @close="activeEdit = false"
@@ -102,14 +141,25 @@ export default {
   methods: {
     async getObjects () {
       try {
-        const res = await this.$store.dispatch('modules/projectGenerator/getRelations', this.query)
-        this.data = res.results
-        console.log(res)
+        const res = await this.$store.dispatch('modules/projectInfo/getProjectInfos', this.query)
+        this.data = res.results.map((x) => {
+          x.calendar_1.date_init = new Date(x.calendar_1.date_init)
+          x.calendar_1.date_end = new Date(x.calendar_1.date_end)
+
+          return x
+        })
       } catch (error) {
         console.log(error)
       }
     },
-
+    viewConcepts (id) {
+      this.$router.push({
+        path: '/project/conceptsProject',
+        query: {
+          id_project: id
+        }
+      })
+    },
     editItem (object) {
       this.projectEdit = object
       this.activeEdit = true

@@ -1,4 +1,4 @@
-import { getUsers, updateUser, createUser } from '~/api/users'
+import { getUsers, updateUser, createUser, deleteUser } from '~/api/users'
 import { getGroups } from '~/api/groups'
 
 export const actions = {
@@ -17,6 +17,14 @@ export const actions = {
   },
   async getGroupsList ({ commit }, query) {
     const res = await getGroups(query)
+    return res
+  },
+  async getUsers ({ commit }, query) {
+    const res = await getUsers(query)
+    return res
+  },
+  async deleteUser ({ commit }, id) {
+    const res = await deleteUser(id)
     return res
   }
 }

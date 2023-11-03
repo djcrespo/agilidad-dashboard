@@ -33,20 +33,20 @@
 
       <b-table-column
         v-slot="props"
-        field="project_details.date_init"
+        field="general_calendar.date_init"
         label="Fecha de inicio del projecto"
         centered
       >
-        {{ props.row.project_details && props.row.project_details.date_init ? new Date(props.row.project_details.date_init).toLocaleDateString() : 'Sin fecha' }}
+        {{ (props.row.general_calendar && props.row.general_calendar.date_init) ? new Date(props.row.general_calendar.date_init).toLocaleDateString() : 'Sin fecha' }}
       </b-table-column>
 
       <b-table-column
         v-slot="props"
-        field="project_details.date_end"
+        field="general_calendar.date_end"
         label="Fecha de finalización del projecto"
         centered
       >
-        {{ props.row.project_details && props.row.project_details.date_end ? new Date(props.row.project_details.date_end).toLocaleDateString() : 'Sin fecha' }}
+        {{ (props.row.general_calendar && props.row.general_calendar.date_end) ? new Date(props.row.general_calendar.date_end).toLocaleDateString() : 'Sin fecha' }}
       </b-table-column>
 
       <b-table-column

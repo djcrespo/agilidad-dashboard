@@ -98,7 +98,9 @@ export default {
       '~/components/generatorsComponents',
       '~/components/forms',
       '~/components/cards',
-      '~/components/defaultComponents'
+      '~/components/defaultComponents',
+      '~/components/persons',
+      '~/components/metricUnits'
     ]
   },
   devtools: true,

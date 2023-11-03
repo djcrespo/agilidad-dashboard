@@ -6,11 +6,20 @@
     >
       <b-table-column
         v-slot="props"
-        field="project.key_project"
-        label="Clave del proyecto"
+        field="label"
+        label="Nombre"
         centered
       >
-        {{ props.row.project.key_project ? props.row.project.key_project : 'Sin clave' }}
+        {{ props.row.label ? props.row.label : 'Sin nombre' }}
+      </b-table-column>
+
+      <b-table-column
+        v-slot="props"
+        field="description"
+        label="Descripción"
+        centered
+      >
+        {{ props.row.description ? props.row.description : 'Sin descripción' }}
       </b-table-column>
 
       <b-table-column
@@ -19,15 +28,6 @@
         centered
       >
         <div class="columns has-text-centered">
-          <div class="column">
-            <b-button
-              type="is-success"
-              icon-right="eye-outline"
-              @click="viewItem(props.row.id)"
-            >
-              Ver
-            </b-button>
-          </div>
           <div class="column">
             <b-button
               type="is-info"
@@ -56,9 +56,9 @@
       </template>
     </b-table>
 
-    <edit-project
+    <edit-section
       :is-active="activeEdit"
-      :project="projectEdit"
+      :concept="projectEdit"
       @close="activeEdit = false"
     />
   </div>
@@ -66,9 +66,9 @@
 
 <script>
 export default {
-  name: 'ConceptsGeneratorTable',
+  name: 'SectionsTable',
   props: {
-    id: {
+    idProject: {
       type: String,
       default: null
     },
@@ -85,7 +85,8 @@ export default {
       data: [],
       loadingTable: false,
       projectEdit: {},
-      activeEdit: false
+      activeEdit: false,
+      id: null
     }
   },
   watch: {
@@ -94,17 +95,20 @@ export default {
         this.getObjects()
         this.$emit('reset')
       }
+    },
+    idProject (newVal, oldVakl) {
+      if (newVal) {
+        this.id = newVal
+        this.getObjects()
+      }
     }
   },
-  mounted () {
-    this.getObjects()
-  },
+  mounted () {},
   methods: {
     async getObjects () {
       try {
-        const res = await this.$store.dispatch('modules/projectGenerator/getRelations', this.query)
-        this.data = res.results
-        console.log(res)
+        const res = await this.$store.dispatch('modules/sectionsProject/getInstanceSectionsProject', this.id)
+        this.data = res.sections
       } catch (error) {
         console.log(error)
       }

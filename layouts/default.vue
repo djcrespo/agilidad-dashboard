@@ -77,6 +77,7 @@ export default {
               state: '1primary',
               icon: 'office-building-cog-outline'
             },
+            /*
             {
               to: '/calendar',
               state: '1primary',
@@ -89,6 +90,7 @@ export default {
               icon: 'folder-search-outline',
               label: 'Seguimiento'
             },
+            */
             {
               to: '/generators',
               state: '1primary',
@@ -96,7 +98,7 @@ export default {
               label: 'Generadoras'
             },
             {
-              to: '/invertory',
+              to: '/estimations',
               state: '1primary',
               icon: 'file-cog-outline',
               label: 'Estimaciones'
@@ -104,11 +106,19 @@ export default {
           ],
           'Administrativo',
           [
+            /*
             {
               to: '/concepts',
               label: 'Catálogo interno',
               state: '1primary',
               icon: 'format-list-bulleted'
+            },
+            */
+            {
+              to: '/metrics',
+              label: 'Unidades de medida',
+              state: '1primary',
+              icon: 'ruler'
             },
             {
               to: '/projectTypes',
@@ -126,11 +136,23 @@ export default {
               to: '/statusGenerator',
               label: 'Estados de generadoras',
               state: '1primary',
-              icon: 'account-hard-hat-outline'
+              icon: 'check-circle-outline'
+            },
+            {
+              to: '/persons',
+              label: 'Personal',
+              state: '1primary',
+              icon: 'account-group'
             },
             {
               to: '/contractors',
               label: 'Contratistas',
+              state: '1primary',
+              icon: 'account-hard-hat-outline'
+            },
+            {
+              to: '/contractors',
+              label: 'Empresas',
               state: '1primary',
               icon: 'account-hard-hat-outline'
             }
