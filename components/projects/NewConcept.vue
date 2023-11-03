@@ -27,7 +27,7 @@
                 />
               </div>
               <div class="column">
-                <b-field label="Secciones" label-position="on-border">
+                <b-field label="Sección" label-position="on-border">
                   <b-select
                     v-model="form.section"
                     placeholder="Seleccione una opción"
@@ -57,6 +57,15 @@
                     </option>
                   </b-select>
                 </b-field>
+              </div>
+              <div class="column">
+                <BNumberInputWithValidation
+                  v-model="form.concept.quantity"
+                  label="Cantidad"
+                  name="cantidad"
+                  label-position="on-border"
+                  rules="required"
+                />
               </div>
             </div>
             <div class="columns">
@@ -106,7 +115,8 @@ export default {
         concept: {
           key_concept: '',
           description: '',
-          uni: null
+          uni: null,
+          quantity: 0
         }
       },
       id: '',
@@ -134,7 +144,8 @@ export default {
           concept: {
             key_concept: '',
             description: '',
-            uni: null
+            uni: null,
+            quantity: 0
           }
         }
         this.isLoading = false
@@ -151,7 +162,8 @@ export default {
         concept: {
           key_concept: '',
           description: '',
-          uni: null
+          uni: null,
+          quantity: 0
         }
       }
       this.$emit('close')

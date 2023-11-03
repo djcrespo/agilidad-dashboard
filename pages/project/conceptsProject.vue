@@ -40,10 +40,7 @@
           </b-button>
         </div>
         <div class="level-item">
-          <b-button
-            class="is-success is-light"
-            icon-left="file-excel"
-          >
+          <b-button class="is-success is-light" icon-left="file-excel">
             Descargar registros
           </b-button>
         </div>
@@ -56,11 +53,29 @@
         @close="isActive = false"
         @save="refreshView"
       />
+      <!--
       <concepts-project-table
         :id-project="id"
         :refresh="refreshTable"
         @reset="refreshTable = false"
       />
+      -->
+      <div v-if="data" class="container">
+        <div v-for="section in sections" :key="section.section.id">
+          <concepts-section-table
+            :section-object="section"
+            @refresh="refreshView"
+          />
+        </div>
+      </div>
+      <div v-else class="message">
+        <b-notification
+          type="is-warning is-light"
+          :closable="false"
+        >
+          No hay registros
+        </b-notification>
+      </div>
     </div>
   </div>
 </template>
@@ -71,14 +86,19 @@ export default {
   data () {
     return {
       id: '',
-      concepts: [],
+      query: {
+        limit: 1,
+        project: ''
+      },
+      sections: [],
       isActive: false,
-      refreshTable: false
+      refreshTable: false,
+      data: null
     }
   },
   mounted () {
     this.id = this.$route.query.id_project
-    console.log(this.id)
+    this.getSectionsProject()
   },
   methods: {
     pushSections () {
@@ -86,13 +106,28 @@ export default {
       this.$router.push({
         path: '/project/sectionsConcepts',
         query: {
-          id_project: this.id
+          id_project: this.$route.query.id_project
         }
       })
     },
     refreshView () {
       this.isActive = false
-      this.refreshTable = true
+      this.data = null
+      this.sections = []
+      this.getSectionsProject()
+    },
+    async getSectionsProject () {
+      try {
+        this.query.project = this.id
+        const res = await this.$store.dispatch(
+          'modules/concepts/getConceptsProjectById',
+          this.query
+        )
+        this.data = res.results[0]
+        this.sections = this.data.sections_concept
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
