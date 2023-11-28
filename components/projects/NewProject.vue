@@ -82,33 +82,55 @@
             </div>
             <div class="columns">
               <div class="column">
-                <BNumberInputWithValidation
-                  v-model="form.ProjectDetails.baseBudget"
-                  label="Presupuesto base"
-                  name="presupuesto base"
-                  label-position="on-border"
-                />
+                <b-field label="Presupuesto base" label-position="on-border">
+                  <vue-numeric
+                    v-model="form.ProjectDetails.baseBudget"
+                    class="input"
+                    currency="$"
+                    separator=","
+                    :precision="2"
+                  />
+                </b-field>
               </div>
             </div>
             <div class="columns">
               <div class="column">
-                <BNumberInputWithValidation
-                  v-model="form.ProjectDetails.requestedBudget"
+                <b-field
                   label="Presupuesto solicitado"
-                  name="presupuesto solicitado"
                   label-position="on-border"
-                />
+                >
+                  <vue-numeric
+                    v-model="requestedBudget"
+                    class="input"
+                    currency="$"
+                    separator=","
+                    :precision="2"
+                  />
+                </b-field>
               </div>
               <div class="column">
-                <BNumberInputWithValidation
-                  v-model="form.ProjectDetails.contratedBudget"
+                <b-field
                   label="Presupuesto contratado"
-                  name="presupuesto contratado"
                   label-position="on-border"
-                />
+                >
+                  <vue-numeric
+                    v-model="contratedBudget"
+                    class="input"
+                    currency="$"
+                    separator=","
+                    :precision="2"
+                  />
+                </b-field>
               </div>
               <div class="column">
-                Economía = {{ form.ProjectDetails.contratedBudget && form.ProjectDetails.requestedBudget ? '$ ' + (form.ProjectDetails.requestedBudget - form.ProjectDetails.contratedBudget) : ' ' }}
+                <vue-numeric
+                  v-model="economy"
+                  class="input"
+                  currency="$"
+                  separator=","
+                  :read-only="true"
+                  :precision="2"
+                />
               </div>
             </div>
             <div class="divider">
@@ -138,16 +160,12 @@
             <div class="columns">
               <div class="column">
                 <b-field label="Fecha inicio">
-                  <b-datepicker
-                    v-model="form.CalendarPeriod1.date_init"
-                  />
+                  <b-datepicker v-model="form.CalendarPeriod1.date_init" />
                 </b-field>
               </div>
               <div class="column">
                 <b-field label="Fecha final">
-                  <b-datepicker
-                    v-model="form.CalendarPeriod1.date_end"
-                  />
+                  <b-datepicker v-model="form.CalendarPeriod1.date_end" />
                 </b-field>
               </div>
             </div>
@@ -157,16 +175,12 @@
             <div class="columns">
               <div class="column">
                 <b-field label="Fecha inicio">
-                  <b-datepicker
-                    v-model="form.CalendarPeriod2.date_init"
-                  />
+                  <b-datepicker v-model="form.CalendarPeriod2.date_init" />
                 </b-field>
               </div>
               <div class="column">
                 <b-field label="Fecha final">
-                  <b-datepicker
-                    v-model="form.CalendarPeriod2.date_end"
-                  />
+                  <b-datepicker v-model="form.CalendarPeriod2.date_end" />
                 </b-field>
               </div>
             </div>
@@ -176,16 +190,12 @@
             <div class="columns">
               <div class="column">
                 <b-field label="Fecha inicio">
-                  <b-datepicker
-                    v-model="form.CalendarPeriod3.date_init"
-                  />
+                  <b-datepicker v-model="form.CalendarPeriod3.date_init" />
                 </b-field>
               </div>
               <div class="column">
                 <b-field label="Fecha final">
-                  <b-datepicker
-                    v-model="form.CalendarPeriod3.date_end"
-                  />
+                  <b-datepicker v-model="form.CalendarPeriod3.date_end" />
                 </b-field>
               </div>
             </div>
@@ -217,6 +227,9 @@ export default {
   },
   data () {
     return {
+      requestedBudget: 0,
+      contratedBudget: 0,
+      economy: 0,
       form: {
         ProjectDetails: {
           number_contract: '',
@@ -247,6 +260,15 @@ export default {
       typesResource: []
     }
   },
+  watch: {
+    contratedBudget (newVal, oldVal) {
+      if (this.requestedBudget !== 0 && newVal) {
+        this.economy = Number(this.requestedBudget) - Number(newVal)
+        this.form.ProjectDetails.requestedBudget = Number(this.requestedBudget)
+        this.form.ProjectDetails.contratedBudget = Number(newVal)
+      }
+    }
+  },
   mounted () {
     this.getTypesProject()
     this.getTypesResource()
@@ -254,7 +276,9 @@ export default {
   methods: {
     async getTypesProject () {
       try {
-        const res = await this.$store.dispatch('modules/typeProjects/getTypeProjects')
+        const res = await this.$store.dispatch(
+          'modules/typeProjects/getTypeProjects'
+        )
         this.typesProject = res.results
         // console.log(this.typesProject)
       } catch (error) {
@@ -263,7 +287,9 @@ export default {
     },
     async getTypesResource () {
       try {
-        const res = await this.$store.dispatch('modules/typeResource/getTypeResources')
+        const res = await this.$store.dispatch(
+          'modules/typeResource/getTypeResources'
+        )
         this.typesResource = res.results
         // console.log(this.typesResource)
       } catch (error) {

@@ -72,8 +72,8 @@
               <div class="column">
                 <BInputWithValidation
                   v-model="form.concept.description"
-                  label="Descripción breve"
-                  name="descripción breve"
+                  label="Concepto"
+                  name="concepto"
                   label-position="on-border"
                   type="textarea"
                 />

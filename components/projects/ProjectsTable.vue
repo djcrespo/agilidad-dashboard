@@ -10,7 +10,7 @@
         label="Clave del proyecto"
         centered
       >
-        {{ props.row.project.key_project ? props.row.project.key_project : 'Sin clave' }}
+        {{ props.row.project ? props.row.project.key_project : 'Sin clave' }}
       </b-table-column>
 
       <b-table-column
@@ -28,7 +28,7 @@
         label="Estado general del proyecto"
         centered
       >
-        {{ props.row.project.status ? props.row.project.status : 'Sin estado' }}
+        {{ props.row.general_calendar ? props.row.general_calendar.status : 'Sin estado' }}
       </b-table-column>
 
       <b-table-column
@@ -68,7 +68,7 @@
             <b-button
               type="is-danger"
               icon-right="delete"
-              @click="deleteItem(props.row.id)"
+              @click="deleteItem(props.row.project.id)"
             >
               Eliminar
             </b-button>

@@ -38,6 +38,7 @@
     "vee-validate": "^3.4.5",
     "vue-chartjs": "^3.5.0",
     "vue-float-action-button": "^0.7.9",
+    "vue-numeric": "^2.5.1",
     "vue-particle": "^1.0.0"
   },
   "devDependencies": {

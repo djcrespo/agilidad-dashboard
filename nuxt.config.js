@@ -63,7 +63,8 @@ export default {
     { src: '~/plugins/particles.js', mode: 'client' },
     { src: '~/plugins/vue-float-action-button.js', mode: 'client' },
     { src: '~/plugins/pop-up-window.js', mode: 'client' },
-    { src: '~/plugins/vcalendar.js', mode: 'client' }
+    { src: '~/plugins/vcalendar.js', mode: 'client' },
+    { src: '~/plugins/vue-numeric.js', mode: 'client' }
   ],
   /*
    ** Nuxt.js dev-modules

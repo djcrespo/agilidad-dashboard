@@ -10,7 +10,7 @@
         label="Estado del proyecto en calendario planeación"
         centered
       >
-        {{ props.row.calendar_1.status ? props.row.calendar_1.status : 'Sin estado en el calendario del periodo 1' }}
+        {{ props.row.calendar_1.status ? (props.row.calendar_1.status | statusPlanification) : 'Sin estado en el calendario del periodo 1' }}
       </b-table-column>
 
       <b-table-column
@@ -19,7 +19,7 @@
         label="Clave del proyecto"
         centered
       >
-        {{ props.row.project.key_project ? props.row.project.key_project : 'Sin clave' }}
+        {{ props.row.project ? props.row.project.key_project : 'Sin clave' }}
       </b-table-column>
 
       <b-table-column

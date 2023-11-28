@@ -43,8 +43,8 @@
               <div class="column">
                 <BInputWithValidation
                   v-model="form.description"
-                  label="Descripción"
-                  name="descripción"
+                  label="Concepto"
+                  name="concepto"
                   label-position="on-border"
                   type="textarea"
                   rules="required"

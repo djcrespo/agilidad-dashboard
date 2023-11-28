@@ -9,7 +9,7 @@
     <div class="modal-card" style="width: auto">
       <div class="modal-card-head">
         <p class="modal-card-title">
-          Nueva sección
+          Nueva partida
         </p>
       </div>
       <section class="modal-card-body">
@@ -19,8 +19,8 @@
               <div class="column">
                 <BInputWithValidation
                   v-model="form.section.label"
-                  label="Nombre de la sección"
-                  name="nombre de la sección"
+                  label="Nombre de la partida"
+                  name="nombre de la partida"
                   label-position="on-border"
                   rules="required"
                   normal
@@ -107,7 +107,10 @@ export default {
       }
     },
     cancel () {
-      this.form = {}
+      this.form = {
+        label: '',
+        description: ''
+      }
       this.$emit('close')
     }
   }

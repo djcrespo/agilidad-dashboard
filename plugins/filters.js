@@ -14,7 +14,11 @@ const birthdate = datetime => {
 const currency = (num) => {
   return parseFloat(num).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
 }
+const statusPlanification = (status) => {
+  return status === 'primary' ? 'Disponible para captura' : (status === 'warning' ? 'Capturando' : (status === 'secondary' ? 'En revisión' : (status === 'medium' ? 'Rechazado' : (status === 'success' ? 'Aprobado' : 'Sin estado'))))
+}
 Vue.filter('date', date)
 Vue.filter('shortDate', shortDate)
 Vue.filter('birthdate', birthdate)
 Vue.filter('currency', currency)
+Vue.filter('statusPlanification', statusPlanification)

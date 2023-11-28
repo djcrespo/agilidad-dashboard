@@ -16,7 +16,7 @@
       <b-table-column
         v-slot="props"
         field="description"
-        label="Descripción del concepto"
+        label="Concepto"
       >
         {{ props.row.description }}
       </b-table-column>
