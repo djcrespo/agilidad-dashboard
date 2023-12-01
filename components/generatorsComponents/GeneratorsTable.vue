@@ -10,7 +10,7 @@
         label="Estado del proyecto en calendario planeación"
         centered
       >
-        {{ props.row.calendar_1.status ? (props.row.calendar_1.status | statusPlanification) : 'Sin estado en el calendario del periodo 1' }}
+        {{ props.row.calendar_1.status | statusPlanification }}
       </b-table-column>
 
       <b-table-column
@@ -44,7 +44,7 @@
         v-slot="props"
         label="Días restantes"
         centered
-      >
+        >
         {{ ( props.row.calendar_1.date_end - props.row.calendar_1.date_init ) / (1000 * 60 * 60 * 24) }}
       </b-table-column>
 
@@ -148,6 +148,7 @@ export default {
 
           return x
         })
+        console.log(this.data)
       } catch (error) {
         console.log(error)
       }
