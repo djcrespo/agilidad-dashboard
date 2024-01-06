@@ -148,7 +148,7 @@ export default {
 
           return x
         })
-        console.log(this.data)
+        // console.log(this.data)
       } catch (error) {
         console.log(error)
       }
@@ -156,6 +156,14 @@ export default {
     viewConcepts (id) {
       this.$router.push({
         path: '/project/conceptsProject',
+        query: {
+          id_project: id
+        }
+      })
+    },
+    viewItem (id) {
+      this.$router.push({
+        path: '/project/numGen',
         query: {
           id_project: id
         }

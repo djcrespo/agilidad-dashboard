@@ -1,9 +1,10 @@
 import request from './config'
 
-export const getRelations = () => {
+export const getRelations = (query) => {
   return request({
     url: '/project-generator/',
-    method: 'GET'
+    method: 'GET',
+    query
   })
 }
 

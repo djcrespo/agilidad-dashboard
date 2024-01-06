@@ -30,13 +30,13 @@
     </nav>
     <div class="columns">
       <div class="column">
-        <type-projects-table
-          :refresh="actionRefresh"
-          @reset="actionRefresh = false"
+        <estimations-projects
+          :refresh="refreshTable"
+          @reset="refreshTable = false"
         />
       </div>
     </div>
-    <new-type-project
+    <new-estimation-project
       :is-active="activeModal"
       @close="refresh"
     />
@@ -53,7 +53,8 @@ export default {
     return {
       query: {},
       activeModal: false,
-      actionRefresh: false
+      actionRefresh: false,
+      refreshTable: false
     }
   },
   methods: {

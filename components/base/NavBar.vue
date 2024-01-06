@@ -40,7 +40,7 @@
     >
       <div class="navbar-end">
         <nav-bar-menu class="has-divider has-user-avatar">
-          <user-avatar />
+          <!--<user-avatar />-->
           <div class="is-user-name">
             <span>{{ userFullName || userName }}</span>
           </div>

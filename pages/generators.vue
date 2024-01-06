@@ -32,12 +32,12 @@
             Nuevo registro
           </b-button>
         </div>
-        -->
         <div class="level-item">
           <b-button class="is-success is-light" icon-left="file-excel">
             Descargar registros
           </b-button>
         </div>
+        -->
       </div>
     </nav>
     <div class="columns">

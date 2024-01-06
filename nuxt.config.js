@@ -97,6 +97,7 @@ export default {
       '~/components/concepts',
       '~/components/contractors',
       '~/components/generatorsComponents',
+      '~/components/estimationsComponents',
       '~/components/forms',
       '~/components/cards',
       '~/components/defaultComponents',
