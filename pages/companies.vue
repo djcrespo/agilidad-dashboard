@@ -18,7 +18,7 @@
             Nuevo registro
           </b-button>
         </div>
-        <div class="level-item">
+        <div class="levObjetoel-item">
           <b-button
             class="is-success is-light"
             icon-left="file-excel"
@@ -30,13 +30,13 @@
     </nav>
     <div class="columns">
       <div class="column">
-        <estimations-projects
+        <company-table
           :refresh="refreshTable"
           @reset="refreshTable = false"
         />
       </div>
     </div>
-    <new-estimation-project
+    <new-company
       :is-active="activeModal"
       @close="refresh"
     />
@@ -45,7 +45,7 @@
 
 <script>
 export default {
-  name: 'Estimations',
+  name: 'Companies',
   fetch () {
     this.$store.commit('setTitleStack', ['Estimaciones'])
   },
@@ -64,7 +64,7 @@ export default {
   },
   head () {
     return {
-      title: 'Estimaciones'
+      title: 'Compañias'
     }
   }
 }

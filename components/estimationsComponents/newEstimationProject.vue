@@ -29,7 +29,7 @@
                     <template slot-scope="props">
                       <div class="media">
                         <div class="media-content">
-                          {{ props.option.project.key_project }}
+                          {{ props.option }}
                         </div>
                       </div>
                     </template>

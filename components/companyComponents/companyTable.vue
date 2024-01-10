@@ -1,41 +1,15 @@
 <template>
   <div>
-    <b-table
-      :data="data"
-      bordered
-    >
-      <b-table-column
-        v-slot="props"
-        field="name"
-        label="Nombre(s)"
-        centered
-      >
-        {{ props.row.name ? props.row.name : 'Sin nombre(s)' }}
+    <b-table :data="data" bordered :loading="loadingTable">
+      <b-table-column v-slot="props" field="name" label="Nombre">
+        {{ props.row.name }}
       </b-table-column>
 
-      <b-table-column
-        v-slot="props"
-        field="last_name"
-        label="Apellido(s)"
-        centered
-      >
-        {{ props.row.last_name ? props.row.last_name : 'Sin apellido(s)' }}
+      <b-table-column v-slot="props" field="address" label="Dirección">
+        {{ props.row.address }}
       </b-table-column>
 
-      <b-table-column
-        v-slot="props"
-        field="company.name"
-        label="Compañia"
-        centered
-      >
-        {{ props.row.company ? props.row.company.name : 'Compañia no asignada' }}
-      </b-table-column>
-
-      <b-table-column
-        v-slot="props"
-        label="Acciones"
-        centered
-      >
+      <b-table-column v-slot="props" label="Acciones" centered>
         <div class="columns has-text-centered">
           <div class="column">
             <b-button
@@ -65,17 +39,17 @@
       </template>
     </b-table>
 
-    <edit-contractor
+    <edit-company
       :is-active="activeEdit"
-      :contractor="contractorEdit"
-      @close="refreshView"
+      :company="conceptEdit"
+      @close="activeEdit = false"
     />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ContractorsTable',
+  name: 'CompanyTable',
   props: {
     endpoint: {
       type: String,
@@ -93,7 +67,7 @@ export default {
       },
       data: [],
       loadingTable: false,
-      contractorEdit: {},
+      conceptEdit: {},
       activeEdit: false
     }
   },
@@ -111,28 +85,23 @@ export default {
   methods: {
     async getObjects () {
       try {
-        const res = await this.$store.dispatch('modules/contractors/getContractors', this.query)
+        const res = await this.$store.dispatch(
+          'modules/company/getCompanies',
+          this.query
+        )
         this.data = res.results
-        console.log(res)
       } catch (error) {
         console.log(error)
       }
     },
-
     editItem (object) {
-      console.log(object)
-      this.contractorEdit = object
+      this.conceptEdit = object
       this.activeEdit = true
-    },
-    refreshView () {
-      this.contractorEdit = null
-      this.activeEdit = false
-      this.getObjects()
     },
     async deleteItem (id) {
       this.loadingTable = true
       try {
-        await this.$store.dispatch('modules/contractors/deleteContractor', id)
+        await this.$store.dispatch('modules/company/deleteCompany', id)
         this.getObjects()
         this.loadingTable = false
       } catch (error) {

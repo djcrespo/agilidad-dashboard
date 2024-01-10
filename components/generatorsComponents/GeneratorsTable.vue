@@ -44,8 +44,8 @@
         v-slot="props"
         label="Días restantes"
         centered
-        >
-        {{ ( props.row.calendar_1.date_end - props.row.calendar_1.date_init ) / (1000 * 60 * 60 * 24) }}
+      >
+        {{ ( props.row.calendar_1.time ) }}
       </b-table-column>
 
       <b-table-column

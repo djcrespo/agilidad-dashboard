@@ -64,7 +64,6 @@
                   label="Cantidad"
                   name="cantidad"
                   label-position="on-border"
-                  rules="required"
                 />
               </div>
             </div>
@@ -116,7 +115,7 @@ export default {
           key_concept: '',
           description: '',
           uni: null,
-          quantity: 0
+          quantity: null
         }
       },
       id: '',
@@ -145,7 +144,7 @@ export default {
             key_concept: '',
             description: '',
             uni: null,
-            quantity: 0
+            quantity: null
           }
         }
         this.isLoading = false

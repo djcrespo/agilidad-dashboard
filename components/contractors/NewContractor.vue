@@ -42,6 +42,28 @@
             </div>
             <div class="columns">
               <div class="column">
+                <b-field label="Compañia" label-position="on-border">
+                  <b-autocomplete
+                    :data="companies"
+                    field="name"
+                    :loading="isFetching"
+                    :open-on-focus="true"
+                    @typing="getCompanies"
+                    @select="option => form.company = option.id"
+                  >
+                    <template slot-scope="props">
+                      <div class="media">
+                        <div class="media-content">
+                          {{ props.option.name }}
+                        </div>
+                      </div>
+                    </template>
+                  </b-autocomplete>
+                </b-field>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column">
                 <ButtonGroup
                   :handle-submit="handleSubmit"
                   saving
@@ -72,8 +94,18 @@ export default {
         name: '',
         last_name: ''
       },
-      isLoading: false
+      isLoading: false,
+      companies: [],
+      queryCompanies: {
+        limit: 50,
+        is_active: true,
+        search: ''
+      },
+      isFetching: false
     }
+  },
+  mounted () {
+    this.getCompanies()
   },
   methods: {
     async createOrUpdate () {
@@ -89,6 +121,26 @@ export default {
         console.log(error)
       } finally {
         this.isLoading = false
+      }
+    },
+    async getCompanies (text) {
+      if (text) {
+        try {
+          this.queryCompanies.search = text
+          const res = await this.$store.dispatch('modules/company/getCompanies', this.queryCompanies)
+          console.log(res)
+          this.companies = res.results
+        } catch (error) {
+          console.log(error)
+        }
+      } else {
+        try {
+          const res = await this.$store.dispatch('modules/company/getCompanies', this.queryCompanies)
+          console.log(res)
+          this.companies = res.results
+        } catch (error) {
+          console.log(error)
+        }
       }
     },
     cancel () {

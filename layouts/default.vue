@@ -79,12 +79,7 @@ export default {
             },
             /*
             {
-              to: '/calendar',
-              state: '1primary',
-              icon: 'calendar-blank',
-              label: 'Calendarización'
-            },
-            {
+              to: '/calendarUnidad
               to: '/following',
               state: '1primary',
               icon: 'folder-search-outline',
@@ -132,12 +127,14 @@ export default {
               state: '1primary',
               icon: 'cash-multiple'
             },
+            /*
             {
               to: '/statusGenerator',
               label: 'Estados de generadoras',
               state: '1primary',
               icon: 'check-circle-outline'
             },
+            */
             {
               to: '/persons',
               label: 'Personal',
@@ -151,7 +148,7 @@ export default {
               icon: 'account-hard-hat-outline'
             },
             {
-              to: '/contractors',
+              to: '/companies',
               label: 'Empresas',
               state: '1primary',
               icon: 'account-hard-hat-outline'

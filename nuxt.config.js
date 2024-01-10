@@ -102,7 +102,8 @@ export default {
       '~/components/cards',
       '~/components/defaultComponents',
       '~/components/persons',
-      '~/components/metricUnits'
+      '~/components/metricUnits',
+      '~/components/companyComponents'
     ]
   },
   devtools: true,

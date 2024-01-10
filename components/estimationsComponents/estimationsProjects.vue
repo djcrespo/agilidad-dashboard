@@ -96,7 +96,7 @@ export default {
   watch: {
     refresh (newVal, oldVal) {
       if (newVal) {
-        this.getObjects()
+        this.getEstimationsProjects()
         this.$emit('reset')
       }
     }
