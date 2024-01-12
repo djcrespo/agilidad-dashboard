@@ -1,10 +1,11 @@
 import request from './config'
 
-export const getRelations = (query) => {
+export const getRelations = (params) => {
+  console.log(params)
   return request({
     url: '/project-generator/',
     method: 'GET',
-    query
+    params
   })
 }
 

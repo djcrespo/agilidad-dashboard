@@ -5,16 +5,6 @@
       bordered
       :loading="isLoading"
     >
-      <!--
-      <b-table-column
-        v-slot="props"
-        label="Numero generador"
-        centered
-      >
-        {{ props.row }}
-      </b-table-column>
-      -->
-
       <b-table-column
         v-slot="props"
         label="Concepto"
@@ -25,7 +15,7 @@
 
       <b-table-column
         v-slot="props"
-        label="clave"
+        label="Clave"
         centered
       >
         {{ props.row.concept.key_concept }}
@@ -96,7 +86,7 @@ export default {
       result: [],
       query: {
         limit: 1,
-        project: ''
+        project__id: ''
       }
     }
   },
@@ -112,13 +102,16 @@ export default {
     async getData () {
       try {
         this.isLoading = true
-        this.query.project = this.id
+        this.query.project__id = this.idProject
         const res = await this.$store.dispatch('modules/projectGenerator/getRelations', this.query)
         this.result = res.results[0]
         this.values = res.results[0].concepts
         this.isLoading = false
       } catch (error) {
+        this.isLoading = false
         console.log(error)
+      } finally {
+        this.isLoading = false
       }
     }
   }

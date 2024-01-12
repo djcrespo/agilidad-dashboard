@@ -1,5 +1,43 @@
 <template>
-  <div class="container my-2">
+  <div class="m-2">
+    <div>
+      <b-notification
+        type="is-info is-light"
+        aria-close-label="Close notification"
+        :closable="false"
+      >
+        Números generadores
+      </b-notification>
+    </div>
+    <br>
+    <nav class="level">
+      <!-- Left side -->
+      <div class="level-left">
+        <div class="level-item">
+          <b-button @click="returnPage">
+            <strong>Regresar</strong>
+          </b-button>
+        </div>
+      </div>
+
+      <!-- Right side -->
+      <div class="level-right">
+        <div class="level-item">
+          <b-button
+            class="is-info is-light"
+            icon-left="pencil"
+            @click="isActive = true"
+          >
+            Aprobar/rechazar
+          </b-button>
+        </div>
+        <div class="level-item">
+          <b-button class="is-success is-light" icon-left="file-excel">
+            Descargar registros
+          </b-button>
+        </div>
+      </div>
+    </nav>
     <div class="columns">
       <div class="column">
         <num-gen-table
@@ -27,6 +65,12 @@ export default {
     this.id = this.$route.query.id_project
     console.log(this.id)
   },
-  methods: {}
+  methods: {
+    returnPage () {
+      this.$router.push({
+        path: '/generators'
+      })
+    }
+  }
 }
 </script>

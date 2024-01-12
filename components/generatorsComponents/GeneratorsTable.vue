@@ -45,7 +45,7 @@
         label="Días restantes"
         centered
       >
-        {{ ( props.row.calendar_1.time ) }}
+        {{ props.row.calendar_1_time && props.row.calendar_1_time >= 0 ? props.row.calendar_1_time : 'Tiempo exedido' }}
       </b-table-column>
 
       <b-table-column
@@ -60,7 +60,7 @@
               icon-right="account-multiple"
               @click="editItem(props.row)"
             >
-              Asignación de personas
+              Supervisión de obra
             </b-button>
           </div>
         </div>
@@ -80,7 +80,7 @@
             <b-button
               type="is-success"
               icon-right="format-list-checkbox"
-              @click="viewItem(props.row.id)"
+              @click="viewItem(props.row.project.id)"
             >
               Números generadores
             </b-button>
