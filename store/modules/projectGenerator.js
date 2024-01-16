@@ -1,4 +1,4 @@
-import { getRelations, createRelations, readRelations, deleteRelations, updatePartialRelations, updateAllRelations } from '~/api/projectGenerator'
+import { getRelations, updateStatus, createRelations, readRelations, deleteRelations, updatePartialRelations, updateAllRelations } from '~/api/projectGenerator'
 
 export const actions = {
   async getRelationsById ({ commit }, id) {
@@ -24,6 +24,10 @@ export const actions = {
   },
   async deleteRelations ({ commit }, id) {
     const res = await deleteRelations(id)
+    return res
+  },
+  async updateStatus ({ commit }, data) {
+    const res = await updateStatus(data.id, data)
     return res
   }
 }

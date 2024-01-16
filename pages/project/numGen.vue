@@ -1,13 +1,12 @@
 <template>
   <div class="m-2">
     <div>
-      <b-notification
-        type="is-info is-light"
-        aria-close-label="Close notification"
-        :closable="false"
-      >
-        Números generadores
-      </b-notification>
+      <view-status
+        :id-project="id"
+        :status="status"
+        :observations="observations"
+        :update-active="updateActive"
+      />
     </div>
     <br>
     <nav class="level">
@@ -24,6 +23,7 @@
       <div class="level-right">
         <div class="level-item">
           <b-button
+            v-if="result.status !== 'Aceptado'"
             class="is-info is-light"
             icon-left="pencil"
             @click="isActive = true"
@@ -42,9 +42,18 @@
       <div class="column">
         <num-gen-table
           :id-project="id"
+          :update-active="updateActive"
+          @getId="(value) => idregister = value"
         />
       </div>
     </div>
+
+    <change-status
+      :is-active="isActive"
+      :id-project="id"
+      @update="updateView"
+      @close="isActive = false"
+    />
   </div>
 </template>
 
@@ -53,23 +62,52 @@ export default {
   name: 'NumGen',
   data () {
     return {
+      isActive: false,
+      updateActive: false,
+      result: {},
       id: '',
       query: {
         limit: 1,
-        project: ''
+        project__id: ''
       },
-      numGens: {}
+      numGens: {},
+      idregister: null,
+      status: null,
+      observations: null
     }
   },
   mounted () {
     this.id = this.$route.query.id_project
-    console.log(this.id)
+    this.getData()
   },
   methods: {
     returnPage () {
       this.$router.push({
         path: '/generators'
       })
+    },
+    updateView () {
+      this.isActive = false
+      this.getData()
+    },
+    async getData () {
+      try {
+        this.isLoading = true
+        const res = await this.$store.dispatch('modules/projectGenerator/getRelations', this.query)
+        this.result = res.results[0]
+        this.status = this.result.status
+        this.observations = this.result.observations
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async downloadExcel () {
+      try {
+        const res = await this.$store.dispatch('modules/projectGenerator')
+        console.log(res)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }

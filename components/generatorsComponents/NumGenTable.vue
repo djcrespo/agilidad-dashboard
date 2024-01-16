@@ -7,14 +7,6 @@
     >
       <b-table-column
         v-slot="props"
-        label="Concepto"
-        centered
-      >
-        {{ props.row.concept.description }}
-      </b-table-column>
-
-      <b-table-column
-        v-slot="props"
         label="Clave"
         centered
       >
@@ -23,12 +15,20 @@
 
       <b-table-column
         v-slot="props"
+        label="Concepto"
+        centered
+      >
+        {{ props.row.concept.description }}
+      </b-table-column>
+
+      <b-table-column
+        v-slot="props"
         label="Posición"
         centered
       >
-        <div v-for="(item, name, index) in props.row.values" :key="index">
+        <div v-for="(item, name, index) in props.row.position" :key="index">
           <p v-if="name !== 'total'">
-            {{ name }}: {{ item }}
+            {{ name.toUpperCase() }}: {{ item }}
           </p>
         </div>
       </b-table-column>
@@ -40,7 +40,7 @@
       >
         <div v-for="(item, name, index) in props.row.values" :key="index">
           <p v-if="name !== 'total'">
-            {{ name }}: {{ item }}
+            {{ name.toUpperCase() }}: {{ item }}
           </p>
         </div>
       </b-table-column>
@@ -77,6 +77,10 @@ export default {
     idProject: {
       type: String,
       default: null
+    },
+    updateActive: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -93,7 +97,11 @@ export default {
   watch: {
     idProject (newVal, oldVal) {
       if (newVal) {
-        console.log(newVal)
+        this.getData()
+      }
+    },
+    updateActive (newVal, oldVal) {
+      if (newVal) {
         this.getData()
       }
     }
@@ -105,7 +113,9 @@ export default {
         this.query.project__id = this.idProject
         const res = await this.$store.dispatch('modules/projectGenerator/getRelations', this.query)
         this.result = res.results[0]
+        this.$emit('getId', this.result.id)
         this.values = res.results[0].concepts
+        // console.log(this.result)
         this.isLoading = false
       } catch (error) {
         this.isLoading = false
