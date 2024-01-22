@@ -93,6 +93,12 @@ export default {
               label: 'Generadoras'
             },
             {
+              to: '/licitations',
+              state: '1primary',
+              icon: 'scale-balance',
+              label: 'Licitaciones'
+            },
+            {
               to: '/estimations',
               state: '1primary',
               icon: 'file-cog-outline',
