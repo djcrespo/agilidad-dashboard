@@ -22,3 +22,10 @@ export const deleteEstimationsProject = (id) => {
     method: 'DELETE'
   })
 }
+
+export const getEstimationsProject = (id) => {
+  return request({
+    url: `/estimations-project/${id}/`,
+    method: 'GET'
+  })
+}

@@ -29,7 +29,7 @@
                     <template slot-scope="props">
                       <div class="media">
                         <div class="media-content">
-                          {{ props.option }}
+                          {{ props.option.project.key_project }}
                         </div>
                       </div>
                     </template>
@@ -80,7 +80,7 @@ export default {
       form: {},
       queryProject: {
         limit: 50,
-        general_calendar__status: 'Planificacion',
+        general_calendar__status__in: 'Licitacion',
         search: ''
       },
       projects: []

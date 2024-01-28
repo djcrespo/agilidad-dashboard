@@ -103,7 +103,8 @@ export default {
       '~/components/defaultComponents',
       '~/components/persons',
       '~/components/metricUnits',
-      '~/components/companyComponents'
+      '~/components/companyComponents',
+      '~/components/licitacionComponents'
     ]
   },
   devtools: true,

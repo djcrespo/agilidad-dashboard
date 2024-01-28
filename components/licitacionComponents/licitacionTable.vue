@@ -6,46 +6,38 @@
     >
       <b-table-column
         v-slot="props"
-        field="calendar_1.status"
-        label="Estado del proyecto en calendario planeación"
-        centered
-      >
-        {{ props.row.calendar_1.status | statusPlanification }}
-      </b-table-column>
-
-      <b-table-column
-        v-slot="props"
         field="project.key_project"
         label="Clave del proyecto"
         centered
       >
-        {{ props.row.project ? props.row.project.key_project : 'Sin clave' }}
+        {{ props.row.project.key_project }}
       </b-table-column>
 
       <b-table-column
         v-slot="props"
-        field="calendar_1.date_init"
-        label="Fecha de inicio"
+        field="calendar_2.status"
+        label="Estado"
         centered
       >
-        {{ props.row.calendar_1.date_init | birthdate }}
+        {{ props.row.calendar_2.status | statusPlanification }}
       </b-table-column>
 
       <b-table-column
         v-slot="props"
-        field="calendar_1.date_end"
-        label="Fecha de finalización"
+        field="key_project"
+        label="Fecha límite"
         centered
       >
-        {{ props.row.calendar_1.date_end | birthdate }}
+        {{ props.row.calendar_2.date_end | birthdate }}
       </b-table-column>
 
       <b-table-column
         v-slot="props"
+        field="key_project"
         label="Días restantes"
         centered
       >
-        {{ props.row.calendar_1_time && props.row.calendar_1_time >= 0 ? props.row.calendar_1_time : 'Tiempo exedido' }}
+        {{ props.row.calendar_2_time && props.row.calendar_2_time >= 0 ? props.row.calendar_2_time : 'Tiempo exedido' }}
       </b-table-column>
 
       <b-table-column
@@ -58,31 +50,9 @@
             <b-button
               type="is-info"
               icon-right="account-multiple"
-              @click="editItem(props.row)"
+              @click="asignContracto(props.row)"
             >
-              Supervisión de obra
-            </b-button>
-          </div>
-        </div>
-        <div class="columns has-text-centered">
-          <div class="column">
-            <b-button
-              type="is-success"
-              icon-right="library-shelves"
-              @click="viewConcepts(props.row.project.id)"
-            >
-              Catálogo de conceptos
-            </b-button>
-          </div>
-        </div>
-        <div class="columns has-text-centered">
-          <div class="column">
-            <b-button
-              type="is-success"
-              icon-right="format-list-checkbox"
-              @click="viewItem(props.row.project.id)"
-            >
-              Números generadores
+              Asignar ganador
             </b-button>
           </div>
         </div>
@@ -95,17 +65,18 @@
       </template>
     </b-table>
 
-    <edit-asignation
+    <edit-licitation
       :is-active="activeEdit"
-      :project="projectEdit"
-      @close="activeEdit = false"
+      :project-object="projectEdit"
+      @update="refreshView"
+      @close="closeView"
     />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'LicitationTable',
+  name: 'LicitacionTable',
   props: {
     refresh: {
       type: Boolean,
@@ -115,7 +86,8 @@ export default {
   data () {
     return {
       query: {
-        limit: 10
+        limit: 10,
+        general_calendar__status__in: 'Licitacion, Ejecucion'
       },
       data: [],
       loadingTable: false,
@@ -139,48 +111,25 @@ export default {
       try {
         const res = await this.$store.dispatch('modules/projectInfo/getProjectInfos', this.query)
         this.data = res.results.map((x) => {
-          x.calendar_1.date_init = new Date(x.calendar_1.date_init)
-          x.calendar_1.date_end = new Date(x.calendar_1.date_end)
+          x.calendar_2.date_init = new Date(x.calendar_2.date_init)
+          x.calendar_2.date_end = new Date(x.calendar_2.date_end)
 
           return x
         })
-        // console.log(this.data)
       } catch (error) {
         console.log(error)
       }
     },
-    viewConcepts (id) {
-      this.$router.push({
-        path: '/project/conceptsProject',
-        query: {
-          id_project: id
-        }
-      })
-    },
-    viewItem (id) {
-      this.$router.push({
-        path: '/project/numGen',
-        query: {
-          id_project: id
-        }
-      })
-    },
-    editItem (object) {
-      this.projectEdit = object
+    asignContracto (value) {
+      this.projectEdit = value
       this.activeEdit = true
     },
-    async deleteItem (id) {
-      this.loadingTable = true
-      try {
-        await this.$store.dispatch('modules/projectGenerator/deleteRelations', id)
-        this.getObjects()
-        this.loadingTable = false
-      } catch (error) {
-        this.loadingTable = false
-        console.log(error)
-      } finally {
-        this.loadingTable = false
-      }
+    refreshView () {
+      this.data = []
+      this.getObjects()
+    },
+    closeView () {
+      this.activeEdit = false
     }
   }
 }

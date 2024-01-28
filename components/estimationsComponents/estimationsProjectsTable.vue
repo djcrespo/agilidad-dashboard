@@ -51,7 +51,7 @@
             <b-button
               type="is-info"
               icon-right="account-multiple"
-              @click="deleteEstimationsProject(props.row.id)"
+              @click="viewEstimationsProject(props.row.id)"
             >
               Ver estimaciones
             </b-button>
@@ -78,7 +78,7 @@
 
 <script>
 export default {
-  name: 'EstimationsProjects',
+  name: 'EstimationsProjectsTable',
   props: {
     refresh: {
       type: Boolean,
@@ -89,7 +89,8 @@ export default {
     return {
       estimations: [],
       query: {
-        limit: 10
+        limit: 10,
+        general_calendar__status__in: 'Ejecucion'
       }
     }
   },
@@ -121,6 +122,14 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    viewEstimationsProject (id) {
+      this.$router.push({
+        path: '/project/estimationsProject',
+        query: {
+          id_project: id
+        }
+      })
     }
   }
 }

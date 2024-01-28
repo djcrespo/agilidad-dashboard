@@ -111,9 +111,11 @@ export default {
       try {
         this.isLoading = true
         this.query.project__id = this.idProject
+        console.log(this.query)
         const res = await this.$store.dispatch('modules/projectGenerator/getRelations', this.query)
+        console.log(res)
         this.result = res.results[0]
-        this.$emit('getId', this.result.id)
+        // this.$emit('getId', this.result.id)
         this.values = res.results[0].concepts
         // console.log(this.result)
         this.isLoading = false

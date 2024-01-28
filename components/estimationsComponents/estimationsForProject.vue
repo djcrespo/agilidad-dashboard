@@ -49,9 +49,9 @@
         <div class="columns has-text-centered">
           <div class="column">
             <b-button
-              type="is-info"
+              type="is-info is-light"
               icon-right="account-multiple"
-              @click="deleteEstimationsProject(props.row.id)"
+              @click="viewEstimationsProject(props.row.id)"
             >
               Ver estimaciones
             </b-button>
@@ -89,7 +89,8 @@ export default {
     return {
       estimations: [],
       query: {
-        limit: 10
+        limit: 10,
+        general_calendar__status__in: 'Licitacion, Ejecucion'
       }
     }
   },
@@ -105,19 +106,10 @@ export default {
     this.getEstimationsProjects()
   },
   methods: {
-    async getEstimationsProjects () {
+    async viewEstimationsProject (id) {
       try {
-        const res = await this.$store.dispatch('modules/estimations/getAllEstimations', this.query)
-        this.estimations = res.results
-      } catch (error) {
-        console.error(error)
-      }
-    },
-    async deleteEstimationsProject (id) {
-      try {
-        const res = await this.$store.dispatch('modules/estimations/deleteEstimationsProject', id)
-        this.getEstimationsProjects()
-        console.log(res)
+        const res = await this.$store.dispatch('modules/estimations/viewEstimationsProject', id)
+        console.log(res.results)
       } catch (error) {
         console.log(error)
       }

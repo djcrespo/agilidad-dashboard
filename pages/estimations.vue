@@ -30,7 +30,7 @@
     </nav>
     <div class="columns">
       <div class="column">
-        <estimations-projects
+        <estimations-projects-table
           :refresh="refreshTable"
           @reset="refreshTable = false"
         />
