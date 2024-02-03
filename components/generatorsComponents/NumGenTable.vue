@@ -47,6 +47,29 @@
 
       <b-table-column
         v-slot="props"
+        label="Precio estimado"
+        centered
+      >
+        <vue-numeric
+          v-if="hasEditPrice"
+          v-model="props.row.estimate_quantity"
+          class="input"
+          currency="$"
+          separator=","
+          :precision="2"
+        />
+        <vue-numeric
+          v-model="props.row.estimate_quantity"
+          class="input"
+          currency="$"
+          separator=","
+          :precision="2"
+          :read-only="true"
+        />
+      </b-table-column>
+
+      <b-table-column
+        v-slot="props"
         label="Total"
         centered
       >
@@ -88,6 +111,7 @@ export default {
       isLoading: false,
       values: [],
       result: [],
+      hasEditPrice: true,
       query: {
         limit: 1,
         project__id: ''
@@ -115,6 +139,11 @@ export default {
         const res = await this.$store.dispatch('modules/projectGenerator/getRelations', this.query)
         console.log(res)
         this.result = res.results[0]
+        if (this.result.status === 'Aceptado') {
+          this.hasEditPrice = false
+        } else {
+          this.hasEditPrice = true
+        }
         // this.$emit('getId', this.result.id)
         this.values = res.results[0].concepts
         // console.log(this.result)
