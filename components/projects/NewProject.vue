@@ -77,6 +77,28 @@
                 />
               </div>
             </div>
+            <div class="columns">
+              <div class="column">
+                <BInputWithValidation
+                  v-model="form.ProjectDetails.municipio"
+                  rules="required"
+                  name="municipio"
+                  label="Municipio"
+                  label-position="on-border"
+                  normal
+                />
+              </div>
+              <div class="column">
+                <BInputWithValidation
+                  v-model="form.ProjectDetails.localidad"
+                  rules="required"
+                  name="localidad"
+                  label="Localidad"
+                  label-position="on-border"
+                  normal
+                />
+              </div>
+            </div>
             <div class="divider">
               <strong>Presupuesto(s)</strong>
             </div>
