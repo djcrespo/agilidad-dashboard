@@ -9,6 +9,9 @@
       />
     </div>
     <br>
+    <div class="m-2">
+      <properties-num-gen :object-num-gen="result" />
+    </div>
     <nav class="level">
       <!-- Left side -->
       <div class="level-left">
@@ -23,12 +26,12 @@
       <div class="level-right">
         <div class="level-item">
           <b-button
-            v-if="result.status !== 'Aceptado'"
+            v-if="result.status !== 'Aceptado' && !validatePrices"
             class="is-info is-light"
             icon-left="pencil"
             @click="isActive = true"
           >
-            Aprobar/rechazar
+            Aprobar/Rechazar
           </b-button>
         </div>
         <div class="level-item">
@@ -43,7 +46,9 @@
         <num-gen-table
           :id-project="id"
           :update-active="updateActive"
-          @getId="(value) => idregister = value"
+          @getId="(value) => (idregister = value)"
+          @validate="validatePrices = false"
+          @update="updateView"
         />
       </div>
     </div>
@@ -73,7 +78,8 @@ export default {
       numGens: {},
       idregister: null,
       status: null,
-      observations: null
+      observations: null,
+      validatePrices: true
     }
   },
   mounted () {
@@ -93,8 +99,12 @@ export default {
     async getData () {
       try {
         this.isLoading = true
-        const res = await this.$store.dispatch('modules/projectGenerator/getRelations', this.query)
+        const res = await this.$store.dispatch(
+          'modules/projectGenerator/getRelations',
+          this.query
+        )
         this.result = res.results[0]
+        // this.validatePricesToConcept()
         this.status = this.result.status
         this.observations = this.result.observations
       } catch (error) {
