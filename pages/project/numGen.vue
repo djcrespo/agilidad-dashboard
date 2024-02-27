@@ -26,7 +26,7 @@
       <div class="level-right">
         <div class="level-item">
           <b-button
-            v-if="result.status !== 'Aceptado' && !validatePrices"
+            v-if="status && status !== 'Aceptado' && !validatePrices"
             class="is-info is-light"
             icon-left="pencil"
             @click="isActive = true"
@@ -103,9 +103,11 @@ export default {
           'modules/projectGenerator/getRelations',
           this.query
         )
-        this.result = res.results[0]
+        console.log(res)
+        this.result = res.results[0] ? res.results[0] : {}
+        console.log(this.result)
         // this.validatePricesToConcept()
-        this.status = this.result.status
+        this.status = this.result.status ? this.result.status : 'Sin estado'
         this.observations = this.result.observations
       } catch (error) {
         console.log(error)

@@ -119,7 +119,6 @@
               <div class="column">
                 <b-field
                   label="Presupuesto solicitado"
-                  label-position="on-border"
                 >
                   <vue-numeric
                     v-model="requestedBudget"
@@ -127,13 +126,13 @@
                     currency="$"
                     separator=","
                     :precision="2"
+                    :read-only="true"
                   />
                 </b-field>
               </div>
               <div class="column">
                 <b-field
                   label="Presupuesto contratado"
-                  label-position="on-border"
                 >
                   <vue-numeric
                     v-model="contratedBudget"
@@ -141,18 +140,25 @@
                     currency="$"
                     separator=","
                     :precision="2"
+                    :read-only="true"
                   />
                 </b-field>
               </div>
+            </div>
+            <div class="columns">
               <div class="column">
-                <vue-numeric
-                  v-model="economy"
-                  class="input"
-                  currency="$"
-                  separator=","
-                  :read-only="true"
-                  :precision="2"
-                />
+                <b-field
+                  label="Economía"
+                >
+                  <vue-numeric
+                    v-model="economy"
+                    class="input"
+                    currency="$"
+                    separator=","
+                    :read-only="true"
+                    :precision="2"
+                  />
+                </b-field>
               </div>
             </div>
             <div class="divider">

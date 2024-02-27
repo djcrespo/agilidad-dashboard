@@ -35,11 +35,26 @@
 
       <b-table-column
         v-slot="props"
-        field="quantity"
-        label="Cantidad"
+        field="price"
+        label="Precio por concepto"
         centered
       >
-        {{ props.row.quantity ? props.row.quantity : 'Sin cantidad' }}
+        <b-tooltip
+          v-if="props.row.price && props.row.price > 0"
+          label="Este precio va en relación a la medida asignada (volumen, área o pieza)."
+        >
+          <vue-numeric
+            v-model="props.row.price"
+            class="input"
+            currency="$"
+            separator=","
+            :precision="2"
+            :read-only="true"
+          />
+        </b-tooltip>
+        <p v-else>
+          Sin precio definido
+        </p>
       </b-table-column>
 
       <b-table-column

@@ -22,7 +22,7 @@ export default {
     objectNumGen: {
       type: Object,
       // eslint-disable-next-line vue/require-valid-default-prop
-      default: null
+      default: {}
     }
   },
   data () {

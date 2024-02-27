@@ -119,13 +119,13 @@ export default {
           this.query
         )
         this.result = res.results[0]
-        if (this.result.status === 'Aceptado') {
+        if (this.result && this.result.status === 'Aceptado') {
           this.hasEditPrice = false
         } else {
           this.hasEditPrice = true
         }
         // this.$emit('getId', this.result.id)
-        this.values = res.results[0].concepts
+        this.values = res.results[0] ? res.results[0].concepts : []
         // console.log(this.result)
         this.validatePricesToConcept()
         this.isLoading = false
@@ -159,7 +159,7 @@ export default {
       }
     },
     validatePricesToConcept () {
-      if (this.result.concepts.length > 0) {
+      if (this.result && this.result.concepts.length > 0) {
         const result = this.values.filter(
           (x) => x.estimate_quantity === null
         )

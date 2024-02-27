@@ -59,12 +59,17 @@
                 </b-field>
               </div>
               <div class="column">
-                <BNumberInputWithValidation
-                  v-model="form.concept.quantity"
-                  label="Cantidad"
-                  name="cantidad"
-                  label-position="on-border"
-                />
+                <b-label
+                  label="Precio del concepto"
+                >
+                  <vue-numeric
+                    v-model="form.concept.price"
+                    class="input"
+                    currency="$"
+                    separator=","
+                    :precision="2"
+                  />
+                </b-label>
               </div>
             </div>
             <div class="columns">

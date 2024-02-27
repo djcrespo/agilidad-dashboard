@@ -110,6 +110,7 @@ export default {
         const res = await this.$store.dispatch('modules/sectionsProject/getInstanceSectionsProject', this.id)
         this.data = res.sections
       } catch (error) {
+        this.data = []
         console.log(error)
       }
     },

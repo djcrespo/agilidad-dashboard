@@ -31,7 +31,7 @@
             icon-left="plus"
             @click="isActive = true"
           >
-            Nueva sección
+            Nueva partida
           </b-button>
         </div>
         <div class="level-item">

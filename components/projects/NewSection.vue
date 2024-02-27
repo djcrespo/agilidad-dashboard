@@ -23,7 +23,6 @@
                   name="nombre de la partida"
                   label-position="on-border"
                   rules="required"
-                  normal
                 />
               </div>
             </div>
@@ -44,7 +43,7 @@
                   :handle-submit="handleSubmit"
                   saving
                   @save="createOrUpdate"
-                  @cancel="cancel"
+                  @cancel="cancelAdd"
                 />
               </div>
             </div>
@@ -88,6 +87,7 @@ export default {
   },
   methods: {
     async createOrUpdate () {
+      // console.log('tratando de crear')
       this.isLoading = true
       try {
         await this.$store.dispatch('modules/sections/createOrUpdate', this.form)
@@ -106,10 +106,12 @@ export default {
         this.isLoading = false
       }
     },
-    cancel () {
+    cancelAdd () {
       this.form = {
-        label: '',
-        description: ''
+        section: {
+          label: '',
+          description: ''
+        }
       }
       this.$emit('close')
     }
