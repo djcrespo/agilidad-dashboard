@@ -49,10 +49,10 @@
           <div class="column">
             <b-button
               type="is-info"
-              icon-right="account-multiple"
+              icon-right="currency-usd"
               @click="updatePrices(props.row.project.id)"
             >
-              Asingar precios reales al producto
+              Asingar precios reales al proyecto
             </b-button>
           </div>
         </div>
