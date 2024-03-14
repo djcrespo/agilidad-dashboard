@@ -28,7 +28,12 @@
         label="Estado general del proyecto"
         centered
       >
-        {{ props.row.general_calendar ? props.row.general_calendar.status : 'Sin estado' }}
+        <p v-if="props.row.general_calendar.status">
+          {{ props.row.general_calendar.status | generalStatus }}
+        </p>
+        <p v-else>
+          Sin estado
+        </p>
       </b-table-column>
 
       <b-table-column

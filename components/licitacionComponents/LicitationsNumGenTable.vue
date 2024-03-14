@@ -75,7 +75,7 @@
 
 <script>
 export default {
-  name: 'NumGenTable',
+  name: 'LicitationsNumGenTable',
   props: {
     idProject: {
       type: String,

@@ -50,6 +50,17 @@
             <b-button
               type="is-info"
               icon-right="account-multiple"
+              @click="updatePrices(props.row.project.id)"
+            >
+              Asingar precios reales al producto
+            </b-button>
+          </div>
+        </div>
+        <div class="columns has-text-centered">
+          <div class="column">
+            <b-button
+              type="is-info"
+              icon-right="account-multiple"
               @click="asignContracto(props.row)"
             >
               Asignar ganador
@@ -123,6 +134,14 @@ export default {
     asignContracto (value) {
       this.projectEdit = value
       this.activeEdit = true
+    },
+    updatePrices (project) {
+      this.$router.push({
+        path: '/licitation/licitationProject',
+        query: {
+          id_project: project
+        }
+      })
     },
     refreshView () {
       this.data = []

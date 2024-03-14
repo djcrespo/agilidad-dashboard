@@ -17,8 +17,14 @@ const currency = (num) => {
 const statusPlanification = (status) => {
   return status === 'primary' ? 'Disponible para captura' : (status === 'warning' ? 'Capturando' : (status === 'secondary' ? 'En revisión' : (status === 'medium' ? 'Rechazado' : (status === 'success' ? 'Aprobado' : 'Sin estado'))))
 }
+
+const generalStatus = (status) => {
+  console.log(status)
+  return status === 'Planificacion' ? 'Planificacion' : (status === 'Licitacion' ? 'Licitacion' : (status === 'Ejecucion' ? 'Ejecucion' : 'Sin estado'))
+}
 Vue.filter('date', date)
 Vue.filter('shortDate', shortDate)
 Vue.filter('birthdate', birthdate)
 Vue.filter('currency', currency)
 Vue.filter('statusPlanification', statusPlanification)
+Vue.filter('generalStatus', generalStatus)
