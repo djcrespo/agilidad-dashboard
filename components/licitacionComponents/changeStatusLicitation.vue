@@ -9,7 +9,7 @@
     <div class="modal-card" style="width: auto">
       <div class="modal-card-head">
         <p class="modal-card-title">
-          Aceptar o rechazar los números generadores
+          Guardar precios (este cambio no se puede regresar)
         </p>
       </div>
       <section class="modal-card-body">
@@ -19,22 +19,10 @@
               <div class="column">
                 <RadioPicker
                   :options="{
-                    true: 'Aceptado',
-                    false: 'Rechazado'
+                    true: 'Guardar precios',
+                    false: 'Borrador'
                   }"
                   @input="viewValue"
-                />
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column">
-                <BInputWithValidation
-                  v-model="form.observations"
-                  label="Observaciones"
-                  name="observaciones"
-                  label-position="on-border"
-                  type="textarea"
-                  normal
                 />
               </div>
             </div>
@@ -57,7 +45,7 @@
 
 <script>
 export default {
-  name: 'ChangeStatus',
+  name: 'ChangeStatusLicitation',
   props: {
     isActive: {
       type: Boolean,
@@ -108,10 +96,10 @@ export default {
     viewValue (value) {
       switch (value) {
         case 'true':
-          this.form.status = 'AceptadoGenerador'
+          this.form.status = 'AceptadoLicitacion'
           break
         case 'false':
-          this.form.status = 'Rechazado'
+          this.form.status = 'BorradorLicitation'
           break
       }
     }

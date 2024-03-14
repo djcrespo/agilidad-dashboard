@@ -1,16 +1,17 @@
 <template>
   <div class="m-2">
     <div>
-      <view-status
+      <view-status-licitation
         :id-project="id"
         :status="status"
         :observations="observations"
+        :observations-licitation="observationsLicitation"
         :update-active="updateActive"
       />
     </div>
     <br>
     <div class="m-2">
-      <properties-num-gen :object-num-gen="result" />
+      <properties-num-gen-licitation :object-num-gen="result" />
     </div>
     <nav class="level">
       <!-- Left side -->
@@ -26,12 +27,12 @@
       <div class="level-right">
         <div class="level-item">
           <b-button
-            v-if="status && status !== 'Aceptado' && !validatePrices"
+            v-if="status && status === 'AceptadoGenerador' && !validatePrices"
             class="is-info is-light"
-            icon-left="pencil"
+            icon-left="content-save-outline"
             @click="isActive = true"
           >
-            Aprobar/Rechazar
+            Guardar precios
           </b-button>
         </div>
         <div class="level-item">
@@ -52,12 +53,19 @@
         />
       </div>
     </div>
-
-    <change-status
+    <!--
+    <change-status-licitation
       :is-active="isActive"
       :id-project="id"
       @update="updateView"
       @close="isActive = false"
+    />
+    -->
+    <edit-licitation
+      :is-active="isActive"
+      :project-id="id"
+      @update="getData"
+      @close="returnPage"
     />
   </div>
 </template>
@@ -79,6 +87,7 @@ export default {
       idregister: null,
       status: null,
       observations: null,
+      observationsLicitation: null,
       validatePrices: true
     }
   },
@@ -90,7 +99,7 @@ export default {
   methods: {
     returnPage () {
       this.$router.push({
-        path: '/generators'
+        path: '/licitations'
       })
     },
     updateView () {
@@ -110,6 +119,7 @@ export default {
         // this.validatePricesToConcept()
         this.status = this.result.status ? this.result.status : 'Sin estado'
         this.observations = this.result.observations
+        this.observationsLicitation = this.result.observationsLicitation
       } catch (error) {
         console.log(error)
       }

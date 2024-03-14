@@ -1,32 +1,24 @@
 <template>
   <div>
     <b-notification
-      v-if="status && status === 'Capturando'"
+      v-if="status && status === 'AceptadoGenerador'"
       type="is-info is-light"
       aria-close-label="Close notification"
       :closable="false"
     >
-      <strong>Capturando</strong>
+      <strong>Conceptos y números generadores aceptados</strong>
+      <br>
+      {{ observations && observations !== '' ? observations : 'Sin observaciones' }}
     </b-notification>
     <b-notification
-      v-else-if="status && status === 'AceptadoGenerador'"
+      v-else-if="status && status === 'AceptadoLicitacion'"
       type="is-success is-light"
       aria-close-label="Close notification"
       :closable="false"
     >
-      <strong>Aceptado</strong>
+      <strong>Guardado</strong>
       <br>
-      {{ observations && observations !== '' ? observations : 'Sin observaciones' }}
-    </b-notification>
-    <b-notification
-      v-else-if="status && status === 'Rechazado'"
-      type="is-danger is-light"
-      aria-close-label="Close notification"
-      :closable="false"
-    >
-      <strong>Rechazado</strong>
-      <br>
-      {{ observations && observations !== '' ? observations : 'Sin observaciones' }}
+      {{ observationsLicitation && observationsLicitation !== '' ? observationsLicitation : 'Sin observaciones' }}
     </b-notification>
     <b-notification
       v-else
@@ -41,13 +33,17 @@
 
 <script>
 export default {
-  name: 'ViewStatus',
+  name: 'ViewStatusLicitation',
   props: {
     status: {
       type: String,
       default: null
     },
     observations: {
+      type: String,
+      default: null
+    },
+    observationsLicitation: {
       type: String,
       default: null
     }

@@ -56,17 +56,6 @@
             </b-button>
           </div>
         </div>
-        <div class="columns has-text-centered">
-          <div class="column">
-            <b-button
-              type="is-info"
-              icon-right="account-multiple"
-              @click="asignContracto(props.row)"
-            >
-              Asignar ganador
-            </b-button>
-          </div>
-        </div>
       </b-table-column>
 
       <template #empty>
@@ -75,13 +64,6 @@
         </div>
       </template>
     </b-table>
-
-    <edit-licitation
-      :is-active="activeEdit"
-      :project-object="projectEdit"
-      @update="refreshView"
-      @close="closeView"
-    />
   </div>
 </template>
 

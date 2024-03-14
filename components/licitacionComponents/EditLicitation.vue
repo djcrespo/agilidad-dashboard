@@ -9,7 +9,7 @@
     <div class="card">
       <div class="card-header">
         <p class="card-header-title">
-          Editar licitación del proyecto
+          Asignar licitación
         </p>
       </div>
       <div class="card-content">
@@ -72,10 +72,9 @@ export default {
       type: Boolean,
       default: false
     },
-    projectObject: {
-      type: Object,
-      // eslint-disable-next-line vue/require-valid-default-prop
-      default: {}
+    projectId: {
+      type: String,
+      default: null
     }
   },
   data () {
@@ -96,7 +95,8 @@ export default {
   watch: {
     isActive (newVal, oldVal) {
       if (newVal) {
-        this.form.projectId = this.projectObject.project.id
+        this.form.projectId = this.projectId
+        console.log(this.form)
       }
     }
   },
@@ -112,6 +112,7 @@ export default {
           'modules/licitations/updateLicitations',
           this.form
         )
+        await this.udpateLicitation()
         this.form = {}
         this.isLoading = false
         this.$emit('close')
@@ -120,6 +121,22 @@ export default {
         console.log(error)
       } finally {
         this.isLoading = false
+      }
+    },
+    async udpateLicitation () {
+      const temporalForm = {
+        id: this.projectId,
+        status: 'AceptadoLicitacion'
+      }
+      try {
+        // this.isLoading = true
+        await this.$store.dispatch('modules/projectGenerator/updateStatus', temporalForm)
+        // this.isLoading = false
+      } catch (error) {
+        // this.isLoading = false
+        console.log(error)
+      } finally {
+        // this.isLoading = false
       }
     },
     cancel () {
