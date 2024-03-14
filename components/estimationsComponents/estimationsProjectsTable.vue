@@ -36,7 +36,7 @@
         centered
       >
         <div class="columns has-text-centered">
-          <div class="column">
+          <div v-if="parseFloat(props.row.acumulado) === 0" class="column">
             <b-button
               type="is-info"
               icon-right="account-multiple"
