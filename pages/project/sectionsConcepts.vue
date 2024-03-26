@@ -6,7 +6,7 @@
         aria-close-label="Close notification"
         :closable="false"
       >
-        Aquí encontrarás las secciones de conceptos asignados a este proyecto.
+        Aquí encontrarás las <strong>partidas</strong> de conceptos asignados a este proyecto.
         Cada proyecto tiene su
         <strong>propio</strong> catálogo.
       </b-notification>

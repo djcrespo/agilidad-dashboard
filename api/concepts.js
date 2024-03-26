@@ -54,3 +54,14 @@ export const readConceptsProject = (params) => {
     params
   })
 }
+
+export const uploadDocument = (id, data) => {
+  return request({
+    url: `/sections-project/${id}/concepts_excel/`,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    data
+  })
+}

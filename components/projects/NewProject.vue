@@ -26,7 +26,6 @@
                   name="nombre del proyecto"
                   label-position="on-border"
                   rules="required"
-                  normal
                 />
               </div>
             </div>
@@ -38,7 +37,6 @@
                   name="clave del proyecto"
                   label-position="on-border"
                   rules="required"
-                  normal
                 />
               </div>
               <div class="column">
@@ -49,7 +47,6 @@
                   name="tipo de proyecto"
                   label-position="on-border"
                   rules="required"
-                  normal
                 />
               </div>
               <div class="column">
@@ -60,7 +57,6 @@
                   name="tipo de recurso"
                   label-position="on-border"
                   rules="required"
-                  normal
                 />
               </div>
             </div>
@@ -85,7 +81,6 @@
                   name="municipio"
                   label="Municipio"
                   label-position="on-border"
-                  normal
                 />
               </div>
               <div class="column">
@@ -95,7 +90,6 @@
                   name="localidad"
                   label="Localidad"
                   label-position="on-border"
-                  normal
                 />
               </div>
             </div>
@@ -104,7 +98,7 @@
             </div>
             <div class="columns">
               <div class="column">
-                <b-field label="Presupuesto base" label-position="on-border">
+                <b-field label="Presupuesto pre-autorizado" label-position="on-border">
                   <vue-numeric
                     v-model="form.ProjectDetails.baseBudget"
                     class="input"
@@ -169,6 +163,7 @@
                 <b-field label="Fecha inicio del proyecto">
                   <b-datepicker
                     v-model="form.CalendarProject.date_init"
+                    locale="es-MX"
                     inline
                   />
                 </b-field>
@@ -177,6 +172,7 @@
                 <b-field label="Fecha final del proyecto">
                   <b-datepicker
                     v-model="form.CalendarProject.date_end"
+                    locale="es-MX"
                     inline
                   />
                 </b-field>
@@ -188,12 +184,18 @@
             <div class="columns">
               <div class="column">
                 <b-field label="Fecha inicio">
-                  <b-datepicker v-model="form.CalendarPeriod1.date_init" />
+                  <b-datepicker
+                    v-model="form.CalendarPeriod1.date_init"
+                    locale="es-MX"
+                  />
                 </b-field>
               </div>
               <div class="column">
                 <b-field label="Fecha final">
-                  <b-datepicker v-model="form.CalendarPeriod1.date_end" />
+                  <b-datepicker
+                    v-model="form.CalendarPeriod1.date_end"
+                    locale="es-MX"
+                  />
                 </b-field>
               </div>
             </div>
@@ -203,12 +205,18 @@
             <div class="columns">
               <div class="column">
                 <b-field label="Fecha inicio">
-                  <b-datepicker v-model="form.CalendarPeriod2.date_init" />
+                  <b-datepicker
+                    v-model="form.CalendarPeriod2.date_init"
+                    locale="es-MX"
+                  />
                 </b-field>
               </div>
               <div class="column">
                 <b-field label="Fecha final">
-                  <b-datepicker v-model="form.CalendarPeriod2.date_end" />
+                  <b-datepicker
+                    v-model="form.CalendarPeriod2.date_end"
+                    locale="es-MX"
+                  />
                 </b-field>
               </div>
             </div>
@@ -218,15 +226,78 @@
             <div class="columns">
               <div class="column">
                 <b-field label="Fecha inicio">
-                  <b-datepicker v-model="form.CalendarPeriod3.date_init" />
+                  <b-datepicker
+                    v-model="form.CalendarPeriod3.date_init"
+                    locale="es-MX"
+                  />
                 </b-field>
               </div>
               <div class="column">
                 <b-field label="Fecha final">
-                  <b-datepicker v-model="form.CalendarPeriod3.date_end" />
+                  <b-datepicker
+                    v-model="form.CalendarPeriod3.date_end"
+                    locale="es-MX"
+                  />
                 </b-field>
               </div>
             </div>
+            <div class="divider">
+              <strong>Primera estimación</strong>
+            </div>
+            <b-notification
+              type="is-warning"
+              has-icon
+              aria-close-label="Close notification"
+              role="alert"
+              :closable="false"
+            >
+              <p>
+                Si el proyecto se ecuentra en curso y se tiene la <strong>primera estimación</strong>
+                se puede cargar la información (catálogo de conceptos, números generadores y la estimación 1) desde ese documento.
+              </p>
+              <br>
+              <p>
+                Al cargar este documento, el proyecto pasará a la etapa de ejecución donde se capturarán las otras
+                estimaciones a través de la aplicación movil.
+              </p>
+            </b-notification>
+
+            <section>
+              <b-field>
+                <b-upload
+                  v-model="csv"
+                  drag-drop
+                  accept=".csv"
+                >
+                  <section class="section">
+                    <div class="content has-text-centered">
+                      <p>
+                        <b-icon
+                          icon="upload"
+                          size="is-large"
+                        />
+                      </p>
+                      <p>Unicamente archivos con extensión <strong>.csv</strong></p>
+                    </div>
+                  </section>
+                </b-upload>
+              </b-field>
+
+              <div class="tags">
+                <span
+                  v-if="csv"
+                  class="tag is-primary"
+                >
+                  {{ csv.name }}
+                  <button
+                    class="delete is-small"
+                    type="button"
+                    @click="deleteDropFile"
+                  />
+                </span>
+              </div>
+            </section>
+            <br>
             <div class="columns">
               <div class="column">
                 <ButtonGroup
@@ -258,6 +329,7 @@ export default {
       requestedBudget: 0,
       contratedBudget: 0,
       economy: 0,
+      csv: null,
       form: {
         ProjectDetails: {
           number_contract: '',
@@ -302,6 +374,9 @@ export default {
     this.getTypesResource()
   },
   methods: {
+    deleteDropFile () {
+      this.csv = null
+    },
     async getTypesProject () {
       try {
         const res = await this.$store.dispatch(
@@ -329,7 +404,7 @@ export default {
       this.isLoading = true
       try {
         // console.log(this.form)
-        await this.$store.dispatch('modules/projects/createOrUpdate', this.form)
+        const res = await this.$store.dispatch('modules/projects/createOrUpdate', this.form)
         this.form = {
           ProjectDetails: {
             number_contract: '',
@@ -355,8 +430,23 @@ export default {
             date_end: new Date()
           }
         }
-        this.isLoading = false
-        this.$emit('close')
+
+        console.log(res)
+
+        if (this.csv) {
+          const formData = new FormData()
+          formData.append('estimation_csv', this.csv)
+          console.log(res)
+          await this.$store.dispatch('modules/estimations/uploadDocument', {
+            id: res.project,
+            data: formData
+          })
+          this.isLoading = false
+          this.$emit('close')
+        } else {
+          this.isLoading = false
+          this.$emit('close')
+        }
       } catch (error) {
         this.isLoading = false
         console.log(error)

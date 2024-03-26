@@ -9,14 +9,46 @@
         {{ props.row.concept.description }}
       </b-table-column>
 
-      <b-table-column v-slot="props" label="Posición" centered>
+      <b-table-column v-slot="props" label="Ubicaciones" centered>
+        <div v-if="props.row.numGens.length > 0">
+          <div v-for="(item, name, index) in props.row.position" :key="index">
+            <p v-if="name !== 'total'">
+              {{ name.toUpperCase() }}: {{ item }}
+            </p>
+          </div>
+        </div>
+        <div>
+          <p></p>
+        </div>
+      </b-table-column>
+
+      <b-table-column v-slot="props" label="Cantidad total" centered>
+        {{ props.row.total }}
+      </b-table-column>
+
+      <b-table-column v-slot="props" label="Unidad" centered>
+        {{ props.row.concept.uni.label }}
+      </b-table-column>
+
+      <b-table-column v-slot="props" label="Precio unitario" centered>
+        ${{ parseFloat(props.row.concept.price) | roundPrice }}
+      </b-table-column>
+
+      <b-table-column v-slot="props" label="Cantidad total a cobrar por concepto" centered>
+        ${{ (parseFloat(props.row.total) * parseFloat(props.row.concept.price)) | roundPrice }}
+      </b-table-column>
+
+      <!--
+      <b-table-column v-slot="props" label="Ubicaciones" centered>
         <div v-for="(item, name, index) in props.row.position" :key="index">
           <p v-if="name !== 'total'">
             {{ name.toUpperCase() }}: {{ item }}
           </p>
         </div>
       </b-table-column>
+      -->
 
+      <!--
       <b-table-column v-slot="props" label="Valores" centered>
         <div v-for="(item, name, index) in props.row.values" :key="index">
           <p v-if="name !== 'total'">
@@ -24,7 +56,9 @@
           </p>
         </div>
       </b-table-column>
+      -->
 
+      <!--
       <b-table-column v-slot="props" label="Precio estimado" centered>
         <div v-if="hasEditPrice" class="columns">
           <div class="column">
@@ -56,13 +90,14 @@
         </div>
       </b-table-column>
 
-      <b-table-column v-slot="props" label="Total" centered>
-        {{ props.row.values.total }}
+      <b-table-column v-slot="props" label="Acumulado" centered>
+        {{ props.row.total }}
       </b-table-column>
 
       <b-table-column v-slot="props" label="Unidad" centered>
         {{ props.row.unit_metric.label }}
       </b-table-column>
+      -->
 
       <template #empty>
         <div class="has-text-centered">
@@ -120,13 +155,13 @@ export default {
           this.query
         )
         this.result = res.results[0]
-        if (this.result && this.result.status === 'Aceptado') {
+        console.log(this.result)
+        if (this.result && (this.result.status === 'Aceptado' || this.result.status === 'CargadoEstimacion1')) {
           this.hasEditPrice = false
         } else {
           this.hasEditPrice = true
         }
-        // this.$emit('getId', this.result.id)
-        this.values = res.results[0] ? res.results[0].concepts : []
+        this.values = this.result ? this.result.groups_num_gen : []
         // console.log(this.result)
         this.validatePricesToConcept()
         this.isLoading = false

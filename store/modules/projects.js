@@ -8,10 +8,10 @@ export const actions = {
   async createOrUpdate ({ commit }, data) {
     if (data.id) {
       const res = await updatePartialProject(data.id, data)
-      return res.id
+      return res
     } else {
       const res = await createProject(data)
-      return res.id
+      return res
     }
   },
   async getProjects ({ commit }, query) {

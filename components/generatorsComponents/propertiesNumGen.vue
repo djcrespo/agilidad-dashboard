@@ -7,7 +7,8 @@
             <strong>Precio estimado del proyecto</strong>:
           </div>
           <div class="column">
-            <p>$ {{ objectNumGen.estimate_price_project | currency }} pesos mexicanos</p>
+            <p v-if="objectNumGen.status != 'CargadoEstimacion1'">$ {{ objectNumGen.estimate_price_project | currency }} pesos mexicanos (sin el IVA)</p>
+            <p v-else>$ {{ objectNumGen.estimate_real_price_project | currency }} pesos mexicanos (sin el IVA)</p>
           </div>
         </div>
       </div>

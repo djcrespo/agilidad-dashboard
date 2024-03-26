@@ -29,3 +29,14 @@ export const getEstimationsProject = (id) => {
     method: 'GET'
   })
 }
+
+export const uploadDocument = (id, data) => {
+  return request({
+    url: `/estimations-project/${id}/extract_data/`,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    data
+  })
+}

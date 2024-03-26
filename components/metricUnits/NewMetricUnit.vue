@@ -21,10 +21,21 @@
                   v-model="form.label"
                   label="Nombre de la unidad"
                   name="nombre de la unidad"
-                  placeholder="Métros cuadrados"
+                  placeholder="M2, M3, ..."
                   label-position="on-border"
                   rules="required"
-                  normal
+                />
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <BInputWithValidation
+                  v-model="form.description"
+                  label="Descripción breve de la unidad"
+                  name="descripción breve"
+                  placeholder="Metros cuadrados, Metros cubicos, ..."
+                  label-position="on-border"
+                  rules="required"
                 />
               </div>
             </div>
@@ -34,9 +45,8 @@
                   v-model="unit[0]"
                   label="Opción"
                   name="opción"
-                  placeholder="Altura, Base, Profundidad, Pieza"
+                  placeholder="ALTO, LARGO, ANCHO, PIEZA"
                   label-position="on-border"
-                  normal
                 />
               </div>
               <div class="column">
@@ -44,9 +54,8 @@
                   v-model="unit[1]"
                   label="Unidad de medida"
                   name="unidad de medida"
-                  placeholder="cm, m, mm, u"
+                  placeholder="CM, M, ML, PZA"
                   label-position="on-border"
-                  normal
                 />
               </div>
               <div class="column">
@@ -112,6 +121,11 @@ export default {
     async createOrUpdate () {
       this.isLoading = true
       try {
+        const values = {}
+        for (const metric in this.form.metrics_array) {
+          values[this.form.metrics_array[metric][0]] = this.form.metrics_array[metric][1]
+        }
+        this.form.values = values
         await this.$store.dispatch(
           'modules/metricUnits/createOrUpdate',
           this.form

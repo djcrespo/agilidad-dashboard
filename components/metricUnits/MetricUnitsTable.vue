@@ -15,18 +15,27 @@
 
       <b-table-column
         v-slot="props"
+        field="description"
+        label="Descripción"
+        centered
+      >
+        {{ props.row.description ? props.row.description : 'Sin descripción' }}
+      </b-table-column>
+
+      <b-table-column
+        v-slot="props"
         field="metrics_array"
         label="Opciones y sus unidades"
         centered
       >
-        <b-taglist v-if="props.row.metrics_array">
-          <div v-for="object in props.row.metrics_array" :key="object[0]" class="m-2">
+        <b-taglist v-if="props.row.values">
+          <div v-for="(value, key) in props.row.values" :key="key" class="m-2">
             <b-taglist attached>
               <b-tag type="is-dark">
-                {{ object[0] }}
+                {{ key }}
               </b-tag>
               <b-tag type="is-light">
-                {{ object[1] }}
+                {{ value }}
               </b-tag>
             </b-taglist>
           </div>

@@ -1,4 +1,13 @@
-import { getConcepts, createConcept, readConcept, deleteConcept, updatePartialConcept, updateAllConcept, readConceptsProject } from '~/api/concepts'
+import {
+  getConcepts,
+  createConcept,
+  readConcept,
+  deleteConcept,
+  updatePartialConcept,
+  updateAllConcept,
+  readConceptsProject,
+  uploadDocument
+} from '~/api/concepts'
 
 export const actions = {
   async getConceptById ({ commit }, id) {
@@ -28,6 +37,10 @@ export const actions = {
   },
   async getConceptsProjectById ({ commit }, id) {
     const res = await readConceptsProject(id)
+    return res
+  },
+  async uploadDocument ({ commit }, payload) {
+    const res = await uploadDocument(payload.id, payload.data)
     return res
   }
 }

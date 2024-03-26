@@ -19,6 +19,19 @@
       {{ observations && observations !== '' ? observations : 'Sin observaciones' }}
     </b-notification>
     <b-notification
+      v-else-if="status && status === 'CargadoEstimacion1'"
+      type="is-success is-light"
+      aria-close-label="Close notification"
+      :closable="false"
+    >
+      <strong>Registros cargados desde la estimación 1</strong>
+      <br>
+      <p>
+        Estos números generadores fueron cargados a partir de la <strong>estimación 1</strong> del proyecto, por lo tanto, estos
+        números generadores ya pasaron por la licitación y se enlistan los números totales por concepto.
+      </p>
+    </b-notification>
+    <b-notification
       v-else-if="status && status === 'Rechazado'"
       type="is-danger is-light"
       aria-close-label="Close notification"

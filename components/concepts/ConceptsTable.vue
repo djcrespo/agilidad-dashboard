@@ -110,6 +110,7 @@ export default {
     async getObjects () {
       try {
         const res = await this.$store.dispatch('modules/concepts/getConcepts', this.query)
+        console.log(res)
         this.data = res.results
       } catch (error) {
         console.log(error)

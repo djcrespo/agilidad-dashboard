@@ -58,6 +58,7 @@
       </b-table-column>
 
       <b-table-column
+        v-if="canDelete"
         v-slot="props"
         label="Acciones"
         centered
@@ -117,6 +118,10 @@ export default {
       type: Object,
       // eslint-disable-next-line vue/require-valid-default-prop
       default: {}
+    },
+    canDelete: {
+      type: Boolean,
+      default: true
     }
   },
   data () {

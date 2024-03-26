@@ -1,4 +1,4 @@
-import { getEstimations, createEstimations, updateEstimations, deleteEstimationsProject, getEstimationsProject } from '~/api/estimations'
+import { getEstimations, createEstimations, uploadDocument, updateEstimations, deleteEstimationsProject, getEstimationsProject } from '~/api/estimations'
 
 export const actions = {
   async getAllEstimations ({ commit }, query) {
@@ -20,6 +20,10 @@ export const actions = {
   },
   async viewEstimationsProject ({ commit }, id) {
     const res = await getEstimationsProject(id)
+    return res
+  },
+  async uploadDocument ({ commit }, payload) {
+    const res = await uploadDocument(payload.id, payload.data)
     return res
   }
 }

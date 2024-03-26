@@ -7,6 +7,9 @@ const shortDate = datetime => {
   const config = { hour12: true, dateStyle: 'short', timeStyle: 'short' }
   return new Date(datetime).toLocaleString('es-MX', config)
 }
+const roundPrice = price => {
+  return price.toFixed(2)
+}
 const birthdate = datetime => {
   const config = { hour12: true, dateStyle: 'long' }
   return new Date(datetime).toLocaleString('es-MX', config)
@@ -28,3 +31,4 @@ Vue.filter('birthdate', birthdate)
 Vue.filter('currency', currency)
 Vue.filter('statusPlanification', statusPlanification)
 Vue.filter('generalStatus', generalStatus)
+Vue.filter('roundPrice', roundPrice)

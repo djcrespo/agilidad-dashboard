@@ -23,6 +23,15 @@
       <div class="level-right">
         <div class="level-item">
           <b-button
+            class="is-info"
+            icon-left="upload"
+            @click="isActiveUpload = true"
+          >
+            Subir catálogo
+          </b-button>
+        </div>
+        <div class="level-item">
+          <b-button
             class="is-success"
             icon-left="plus"
             @click="isActive = true"
@@ -36,7 +45,7 @@
             icon-left="format-list-bulleted"
             @click="pushSections"
           >
-            Secciones del catálogo
+            Partidas
           </b-button>
         </div>
         <div class="level-item">
@@ -53,6 +62,11 @@
         @close="isActive = false"
         @save="refreshView"
       />
+      <upload-document
+        :is-active="isActiveUpload"
+        :id-project="id"
+        @close="refreshView"
+      />
       <!--
       <concepts-project-table
         :id-project="id"
@@ -64,6 +78,7 @@
         <div v-for="section in sections" :key="section.section.id">
           <concepts-section-table
             :section-object="section"
+            :can-delete="canDelete"
             @refresh="refreshView"
           />
         </div>
@@ -93,7 +108,9 @@ export default {
       sections: [],
       isActive: false,
       refreshTable: false,
-      data: null
+      data: null,
+      isActiveUpload: false,
+      canDelete: true
     }
   },
   mounted () {
@@ -112,6 +129,7 @@ export default {
     },
     refreshView () {
       this.isActive = false
+      this.isActiveUpload = false
       this.data = null
       this.sections = []
       this.getSectionsProject()
@@ -124,6 +142,7 @@ export default {
           this.query
         )
         this.data = res.results[0]
+        this.canDelete = this.data.status !== 'ACEPTADO'
         this.sections = this.data.sections_concept
       } catch (error) {
         console.log(error)
