@@ -296,6 +296,19 @@
                   />
                 </span>
               </div>
+
+              <div class="columns">
+                <div class="column">
+                  <b-field
+                    label="Cantidad de estimaciones a realizar (sin considerar la primera y las extraordinarias se dan de alta aparte)"
+                  >
+                    <vue-numeric
+                      v-model="numberForEstimations"
+                      class="input"
+                    />
+                  </b-field>
+                </div>
+              </div>
             </section>
             <br>
             <div class="columns">
@@ -330,6 +343,7 @@ export default {
       contratedBudget: 0,
       economy: 0,
       csv: null,
+      numberForEstimations: 0,
       form: {
         ProjectDetails: {
           number_contract: '',
@@ -431,12 +445,12 @@ export default {
           }
         }
 
-        console.log(res)
+        // console.log(res)
 
         if (this.csv) {
           const formData = new FormData()
           formData.append('estimation_csv', this.csv)
-          console.log(res)
+          formData.append('numberForEstimations', this.numberForEstimations)
           await this.$store.dispatch('modules/estimations/uploadDocument', {
             id: res.project,
             data: formData

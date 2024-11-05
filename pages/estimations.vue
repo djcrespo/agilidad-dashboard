@@ -60,6 +60,9 @@ export default {
     refresh () {
       this.refreshTable = true
       this.activeModal = false
+    },
+    viewEstimations (id) {
+      this.$router.push('/policy/edit/' + id + '/')
     }
   },
   head () {

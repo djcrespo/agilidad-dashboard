@@ -4,30 +4,41 @@
       :data="estimations"
       bordered
     >
+
       <b-table-column
         v-slot="props"
-        field="project.key_project"
-        label="Proyecto"
+        field="position_estimation"
+        label="Estimación"
         centered
       >
-        {{ props.row.project.key_project }}
+        {{ props.row.position_estimation }}
       </b-table-column>
 
       <b-table-column
         v-slot="props"
-        field="project.acumulado"
-        label="Porcentaje de avance acumulado"
+        field="status"
+        label="Estado de la estimación"
         centered
       >
-        {{ props.row.acumulado }} %
+        {{ props.row.status }}
       </b-table-column>
 
       <b-table-column
         v-slot="props"
-        label="Número de estimaciones de este proyecto"
+        field="estimate_percentage"
+        label="Porcentaje reportado"
         centered
       >
-        {{ props.row.estimations.length }}
+        {{ props.row.estimate_percentage ? props.row.estimate_percentage : 'Sin porcentaje' }}
+      </b-table-column>
+
+      <b-table-column
+        v-slot="props"
+        field="real_percentage"
+        label="Porcentaje real"
+        centered
+      >
+        {{ props.row.real_percentage ? props.row.real_percentage : 'Sin porcentaje' }}
       </b-table-column>
 
       <b-table-column
@@ -39,21 +50,10 @@
           <div class="column">
             <b-button
               type="is-info"
-              icon-right="account-multiple"
-              @click="deleteEstimationsProject(props.row.id)"
+              icon-right="eye-outline"
+              @click="viewValues(props.row.id)"
             >
-              Eliminar conjunto de estimaciones
-            </b-button>
-          </div>
-        </div>
-        <div class="columns has-text-centered">
-          <div class="column">
-            <b-button
-              type="is-info is-light"
-              icon-right="account-multiple"
-              @click="viewEstimationsProject(props.row.id)"
-            >
-              Ver estimaciones
+              Ver
             </b-button>
           </div>
         </div>
@@ -66,13 +66,6 @@
       </template>
     </b-table>
 
-    <!--
-    <edit-register
-      :is-active="activeEdit"
-      :project="projectEdit"
-      @close="activeEdit = false"
-    />
-    -->
   </div>
 </template>
 
@@ -83,15 +76,15 @@ export default {
     refresh: {
       type: Boolean,
       default: false
+    },
+    estimations: {
+      type: Array,
+      // eslint-disable-next-line vue/require-valid-default-prop
+      default: []
     }
   },
   data () {
     return {
-      estimations: [],
-      query: {
-        limit: 10,
-        general_calendar__status__in: 'Licitacion, Ejecucion'
-      }
     }
   },
   watch: {
@@ -102,17 +95,18 @@ export default {
       }
     }
   },
-  mounted () {
-    this.getEstimationsProjects()
-  },
+  mounted () {},
   methods: {
-    async viewEstimationsProject (id) {
-      try {
-        const res = await this.$store.dispatch('modules/estimations/viewEstimationsProject', id)
-        console.log(res.results)
-      } catch (error) {
-        console.log(error)
-      }
+    viewValues (id) {
+      this.$router.push({
+        path: '/estimacion/viewEstimation',
+        query: {
+          id_estimacion: id
+        }
+      })
+    },
+    deleteEstimation (id) {
+      console.log(id)
     }
   }
 }

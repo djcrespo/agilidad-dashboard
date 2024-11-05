@@ -51,7 +51,7 @@
             <b-button
               type="is-info"
               icon-right="account-multiple"
-              @click="viewEstimationsProject(props.row.id)"
+              @click="viewEstimationsProject(props.row.project.id)"
             >
               Ver estimaciones
             </b-button>

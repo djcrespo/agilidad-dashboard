@@ -1,10 +1,10 @@
 import request from './config'
 
-export const getEstimations = (query) => {
+export const getEstimations = (params) => {
   return request({
     url: '/estimations-project/',
     method: 'GET',
-    query
+    params
   })
 }
 
@@ -26,6 +26,13 @@ export const deleteEstimationsProject = (id) => {
 export const getEstimationsProject = (id) => {
   return request({
     url: `/estimations-project/${id}/`,
+    method: 'GET'
+  })
+}
+
+export const getEstimation = (id) => {
+  return request({
+    url: `/estimations/${id}/`,
     method: 'GET'
   })
 }

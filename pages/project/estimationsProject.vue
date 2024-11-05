@@ -7,7 +7,7 @@
           aria-close-label="Close notification"
           :closable="false"
         >
-          Aquí encontrarás las estimaciones por <strong>proyecto</strong>.
+          Aquí encontrarás las estimaciones del proyecto.
         </b-notification>
       </div>
     </div>
@@ -31,7 +31,11 @@
       </div>
     </nav>
     <div class="columns">
-      <div class="column" />
+      <div class="column">
+        <estimations-for-project
+          :estimations="estimations"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -42,6 +46,8 @@ export default {
   data () {
     return {
       idProject: null,
+      estimationsProject: {},
+      estimations: [],
       query: {
         limit: 10,
         search: ''
@@ -61,8 +67,11 @@ export default {
     },
     async getEstimationsProject () {
       try {
+        console.log(this.query)
         const res = await this.$store.dispatch('modules/estimations/getAllEstimations', this.query)
-        console.log(res.results)
+        this.estimationsProject = res.results[0]
+        this.estimations = this.estimationsProject.estimations
+        console.log(res.results[0])
       } catch (error) {
         console.error(error)
       }
